@@ -14,215 +14,151 @@
   --blur: blur(10px);
 }
 body {
-  margin:0; font-family:'Poppins',sans-serif; overflow-x:hidden;
-  background:linear-gradient(120deg,#6C63FF,#8E2DE2,#4A00E0);
-  background-size:400% 400%;
-  animation:bgShift 12s ease infinite;
-  color:#fff; min-height:100vh; display:flex; flex-direction:column; align-items:center;
+  margin:0; font-family:'Poppins', sans-serif; background:linear-gradient(135deg, #6C63FF 0%, #5A5AFF 100%); color:#fff; display:flex; justify-content:center; align-items:center; min-height:100vh; overflow:hidden;
 }
-@keyframes bgShift { 0%{background-position:0 50%} 50%{background-position:100% 50%} 100%{background-position:0 50%}}
-/* ---------- INTRO ---------- */
 #intro {
-  position:fixed; top:0; left:0; right:0; bottom:0;
-  display:flex; align-items:center; justify-content:center;
-  background:linear-gradient(120deg,#6C63FF,#8E2DE2,#4A00E0);
-  animation:bgShift 12s ease infinite;
-  z-index:999; flex-direction:column; color:white; font-weight:600;
+  position:fixed; top:0; left:0; width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center; background:linear-gradient(135deg, #6C63FF 0%, #5A5AFF 100%); z-index:3; transition:opacity 1s; font-size:1.5rem;
 }
-.fadeOut {animation:fadeOut 2s forwards;}
-@keyframes fadeOut {to{opacity:0; visibility:hidden;}}
-/* ---------- HEADER ---------- */
+#intro.fadeOut {
+  opacity:0; pointer-events:none;
+}
 header {
-  width:100%; text-align:center; padding:1.5rem 0; font-weight:600; font-size:1.8rem;
+  text-align:center; margin-bottom:1.5rem;
 }
-header small {display:block; font-weight:300; font-size:1rem;}
-/* ---------- CONTAINER ---------- */
-.container {
-  display:flex; flex-wrap:wrap; justify-content:center; gap:2rem; width:90%; max-width:1200px; margin:auto;
+h1 {
+  margin:0; font-size:2.5rem;
 }
-.panel {
-  background:var(--glass-bg);
-  box-shadow:var(--shadow);
-  backdrop-filter:var(--blur);
-  border-radius:1rem; padding:1.5rem; flex:1; min-width:280px;
-  color:#fff;
+small {
+  font-size:1rem; opacity:0.8;
+}
+main {
+  background:rgba(255,255,255,0.2); box-shadow:0 4px 30px rgba(0,0,0,0.1); backdrop-filter:blur(10px); border-radius:1rem; padding:1.5rem; flex:1; min-width:280px; color:#fff;
 }
 /* ---------- BUTTONS ---------- */
 button {
-  cursor:pointer; border:none; border-radius:0.5rem;
-  background:var(--purple); color:white; padding:0.6rem 1rem; margin:0.3rem 0;
-  font-size:0.9rem; transition:0.3s;
+  cursor:pointer; border:none; border-radius:0.5rem; background:var(--purple); color:white; padding:0.6rem 1rem; margin:0.3rem 0; font-size:0.9rem; transition:0.3s;
 }
-button:hover {opacity:0.85;}
+button:hover { opacity:0.85; }
 /* ---------- EMOTIONS ---------- */
 #emotions li {
-  list-style:none; background:rgba(255,255,255,0.15);
-  margin:0.3rem 0; padding:0.5rem 0.75rem; border-radius:0.5rem;
-  transition:0.3s; cursor:pointer;
+  list-style:none; background:rgba(255,255,255,0.15); margin:0.3rem 0; padding:0.5rem 0.75rem; border-radius:0.5rem; transition:0.3s; cursor:pointer;
 }
-#emotions li:hover {background:rgba(255,255,255,0.3);}
+#emotions li:hover { background:rgba(255,255,255,0.3); }
 #verseCard {
-  background:rgba(255,255,255,0.1);
-  border-left:4px solid var(--purple);
-  padding:1rem; border-radius:0.5rem;
-  font-style:italic; min-height:80px; margin-top:1rem;
-  opacity:0; transition:opacity 0.6s;
+  background:rgba(255,255,255,0.1); border-left:4px solid var(--purple); padding:1rem; border-radius:0.5rem; font-style:italic; min-height:80px; margin-top:1rem; opacity:0; transition:opacity 0.6s;
 }
-#verseCard.visible {opacity:1;}
-#controls {display:flex; gap:0.5rem; margin-top:1rem; flex-wrap:wrap;}
+#verseCard.visible { opacity:1; }
+#controls {
+  display:flex; gap:0.5rem; margin-top:1rem; flex-wrap:wrap;
+}
 input, textarea {
-  width:100%; border:none; border-radius:0.5rem;
-  padding:0.5rem; margin-top:0.5rem;
-  font-family:'Poppins',sans-serif;
+  width:100%; border:none; border-radius:0.5rem; padding:0.5rem; margin-top:0.5rem; font-family:'Poppins', sans-serif;
 }
 #musicToggle, #darkToggle {
-  position:fixed; top:1rem; width:2.5rem; height:2.5rem;
-  border-radius:50%; border:none;
-  color:#fff; font-size:1.2rem;
-  display:flex; align-items:center; justify-content:center;
-  backdrop-filter:blur(8px);
+  position:fixed; top:1rem; width:2.5rem; height:2.5rem; border-radius:50%; border:none; color:#fff; font-size:1.2rem; display:flex; align-items:center; justify-content:center; backdrop-filter:blur(8px);
 }
-#musicToggle { right:1rem; background:rgba(108,99,255,0.6);}
-#darkToggle { right:4.2rem; background:rgba(255,255,255,0.3);}
-.dark body{background:#111;color:#eee;}
+#musicToggle { right:1rem; background:rgba(108,99,255,0.6); }
+#darkToggle { right:4.2rem; background:rgba(255,255,255,0.3); }
+.dark body { background:#111; color:#eee; }
 </style>
 </head>
 <body>
-<div id="intro"><h1>FaithMoods</h1><small>Find clarity in Scripture</small></div>
+<div id="intro"><h1>FaithMoods</h1><small>Find clarity in Scripture</small><button id="startBtn">Start</button></div>
 <header>
   <h1>FaithMoods</h1>
   <small>Find clarity in Scripture</small>
 </header>
-<div class="container">
-  <div class="panel">
-    <h2>Emotions</h2>
-    <ul id="emotions"></ul>
+<main>
+  <ul id="emotions"></ul>
+  <div id="verseCard"></div>
+  <div id="controls">
+    <input id="journalInput" type="text" placeholder="Journal your thoughts here..." />
+    <button id="saveJournal">Save Journal</button>
+    <button id="favorite">Favorite Verse</button>
   </div>
-  <div class="panel">
-    <div id="reasons"></div>
-    <div id="verseCard"></div>
-    <div id="controls">
-      <button id="prevVerseBtn">Previous</button>
-      <button id="nextVerseBtn">Next</button>
-      <button id="favBtn">Save Favorite</button>
-      <button id="shareBtn">Share</button>
-    </div>
-    <textarea id="journal" placeholder="Write your reflection here..."></textarea>
-  </div>
-</div>
-<button id="musicToggle">🔊</button>
-<button id="darkToggle">🌙</button>
-
-<audio id="bgMusic" loop src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9abfc8e8c5.mp3?filename=ambient-piano-and-pad-112199.mp3"></audio>
-
-<script type="module">
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js';
-import { getFirestore, collection, doc, getDoc, getDocs } from 'https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js';
-
-/* ---------- FIREBASE CONFIG ---------- */
+  <audio id="bgMusic" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_fc3ba728e3.mp3?filename=peaceful-ambient-110462.mp3" loop></audio>
+  <button id="musicToggle">♪</button>
+  <button id="darkToggle">☀</button>
+</main>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js"></script>
+<script>
+// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCqwVQx8NbHucvpYmftMG3uSsTFQ5WBWM0",
-  authDomain: "soultabs-c814d.firebaseapp.com",
-  projectId: "soultabs-c814d",
-  storageBucket: "soultabs-c814d.firebasestorage.app",
-  messagingSenderId: "51287038225",
-  appId: "1:51287038225:web:f8afac352a833f362214b0",
-  measurementId: "G-B24FPHB1GC"
+  apiKey: "AIzaSyC...",
+  authDomain: "your-app.firebaseapp.com",
+  projectId: "your-app",
+  storageBucket: "your-app.appspot.com",
+  messagingSenderId: "123456789",
+  appId: "1:123456789:web:abcdefg"
 };
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+// Initialize Firebase
+const app = firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
-/* ---------- INTRO ---------- */
+function loadEmotions() {
+  const emotionsList = document.getElementById('emotions');
+  db.collection('emotions').get().then((snapshot) => {
+    snapshot.forEach((doc) => {
+      const li = document.createElement('li');
+      li.textContent = doc.id;
+      li.addEventListener('click', () => loadVerse(doc.id));
+      emotionsList.appendChild(li);
+    });
+  });
+}
+function loadVerse(emotion) {
+  db.collection('verses').doc(emotion).get().then((doc) => {
+    if (doc.exists) {
+      const verseCard = document.getElementById('verseCard');
+      verseCard.textContent = doc.data().verse;
+      verseCard.classList.add('visible');
+    }
+  });
+}
+function startMusic() {
+  const music = document.getElementById('bgMusic');
+  music.play();
+}
 window.addEventListener('load',()=>{
-  setTimeout(()=>document.getElementById('intro').classList.add('fadeOut'),2000);
-  startMusic();
-  loadEmotions();
+  const startBtn = document.getElementById('startBtn');
+  startBtn.addEventListener('click', () => {
+    document.getElementById('intro').classList.add('fadeOut');
+    startMusic();
+    loadEmotions();
+  });
 });
 
 /* ---------- MUSIC TOGGLE ---------- */
 const music=document.getElementById('bgMusic');
 const toggle=document.getElementById('musicToggle');
-function startMusic(){
-  music.volume=0.15; music.play().catch(()=>{}); //autoplay fallback
-}
 toggle.addEventListener('click',()=>{
-  if(music.paused){music.play();toggle.textContent='🔊';}
-  else{music.pause();toggle.textContent='🔇';}
+ music.paused?music.play():music.pause();
+ toggle.textContent=music.paused?'♪':'❚❚';
 });
 
 /* ---------- DARK MODE ---------- */
-const darkBtn=document.getElementById('darkToggle');
-let dark=false;
-darkBtn.addEventListener('click',()=>{
-  dark=!dark;
-  document.body.style.background=dark?'#111':'';
-  document.body.style.color=dark?'#eee':'#fff';
-  darkBtn.textContent=dark?'☀️':'🌙';
+const dark=document.getElementById('darkToggle');
+dark.addEventListener('click',()=>{
+ document.body.classList.toggle('dark');
+ dark.textContent=document.body.classList.contains('dark')?'☾':'☀';
 });
 
-/* ---------- FIRESTORE LOGIC ---------- */
-let currentVerses=[],currentIndex=0;
-async function loadEmotions(){
-  const snapshot=await getDocs(collection(db,'emotions'));
-  const list=document.getElementById('emotions'); list.innerHTML='';
-  snapshot.forEach(docSnap=>{
-    const li=document.createElement('li');
-    li.textContent=docSnap.id;
-    li.onclick=()=>loadReasons(docSnap.id);
-    list.appendChild(li);
-  });
-}
-async function loadReasons(emotion){
-  const snapshot=await getDocs(collection(db,`emotions/${emotion}/reasons`));
-  const div=document.getElementById('reasons');
-  div.innerHTML=`<h2>${emotion.toUpperCase()}</h2>`;
-  snapshot.forEach(docSnap=>{
-    const btn=document.createElement('button');
-    btn.textContent=docSnap.id.replace(/_/g,' ');
-    btn.onclick=()=>showVerse(emotion,docSnap.id);
-    div.appendChild(btn);
-  });
-  document.getElementById('verseCard').textContent='';
-}
-async function showVerse(emotion,reason){
-  const reasonDoc=await getDoc(doc(db,`emotions/${emotion}/reasons/${reason}`));
-  const verses=reasonDoc.data().verses;
-  if(Array.isArray(verses)){currentVerses=verses;}
-  else if(typeof verses==='string'){currentVerses=verses.split(/\\r?\\n/).filter(v=>v.trim()!=='');}
-  currentIndex=Math.floor(Math.random()*currentVerses.length);
-  displayVerse();
-}
-function displayVerse(){
-  const card=document.getElementById('verseCard');
-  if(!currentVerses.length){card.textContent='No verse found';return;}
-  card.classList.remove('visible');
-  setTimeout(()=>{
-    card.textContent=currentVerses[currentIndex];
-    card.classList.add('visible');
-  },200);
-}
-document.getElementById('nextVerseBtn').onclick=()=>{if(currentVerses.length){currentIndex=(currentIndex+1)%currentVerses.length;displayVerse();}};
-document.getElementById('prevVerseBtn').onclick=()=>{if(currentVerses.length){currentIndex=(currentIndex-1+currentVerses.length)%currentVerses.length;displayVerse();}};
+/* ---------- JOURNAL & FAVORITES ---------- */
+document.getElementById('saveJournal').addEventListener('click',()=>{
+ const text=document.getElementById('journalInput').value;
+ if(!text) return;
+ db.collection('journals').add({text, date:new Date()});
+ alert('Journal saved!');
+ document.getElementById('journalInput').value='';
+});
 
-/* ---------- FAVORITES / SHARE / JOURNAL ---------- */
-const favBtn=document.getElementById('favBtn');
-const shareBtn=document.getElementById('shareBtn');
-const journal=document.getElementById('journal');
-
-favBtn.onclick=()=>{
-  if(!currentVerses.length)return;
-  const favs=JSON.parse(localStorage.getItem('favorites')||'[]');
-  favs.push(currentVerses[currentIndex]);
-  localStorage.setItem('favorites',JSON.stringify(favs));
-  alert('Saved to favorites!');
-};
-shareBtn.onclick=()=>{
-  if(!currentVerses.length)return;
-  navigator.clipboard.writeText(currentVerses[currentIndex]);
-  alert('Verse copied to clipboard!');
-};
-journal.addEventListener('input',()=>localStorage.setItem('journal',journal.value));
-journal.value=localStorage.getItem('journal')||'';
+document.getElementById('favorite').addEventListener('click',()=>{
+ const verse=document.getElementById('verseCard').textContent;
+ if(!verse) return;
+ db.collection('favorites').add({verse, date:new Date()});
+ alert('Added to favorites!');
+});
 </script>
 </body>
 </html>
