@@ -1,246 +1,225 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.7">
-  <style type="text/css">
-    span.s1 {font-kerning: none}
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FaithMoods 2.0</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+
+<style>
+:root {
+  --purple:#6C63FF; --glass-bg:rgba(255,255,255,0.2);
+  --shadow:0 4px 30px rgba(0,0,0,0.1);
+  --blur:blur(12px);
+}
+body {
+  margin:0;font-family:Poppins,sans-serif;
+  background:linear-gradient(120deg,#6C63FF,#8E2DE2,#4A00E0);
+  background-size:400% 400%; animation:bg 14s ease infinite;
+  color:white; display:flex; flex-direction:column; align-items:center;
+}
+@keyframes bg {0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
+#intro {
+  position:fixed; inset:0; display:flex; flex-direction:column;
+  justify-content:center; align-items:center; font-size:2rem;
+  z-index:1000; background:inherit; animation:bg 14s ease infinite;
+}
+.fadeOut {animation:fade 1.6s forwards;}
+@keyframes fade {to{opacity:0;visibility:hidden;}}
+
+button {
+  background:var(--purple); padding:.6rem 1rem; border:none;
+  border-radius:8px; cursor:pointer; color:white;
+  font-size:1rem; margin-top:.7rem;
+}
+button:hover {opacity:.85}
+
+header {text-align:center; margin-top:4rem;}
+.container {
+  width:90%; max-width:1100px; margin-top:2rem;
+  display:flex; gap:1.5rem; flex-wrap:wrap; justify-content:center;
+}
+.panel {
+  flex:1; min-width:280px; padding:1.5rem; border-radius:1rem;
+  background:rgba(255,255,255,.15); backdrop-filter:blur(14px);
+}
+
+#emotions li {
+  background:rgba(255,255,255,.2);
+  margin:.35rem 0; padding:.5rem; border-radius:.5rem;
+  cursor:pointer;
+}
+#emotions li:hover {background:rgba(255,255,255,.35)}
+
+#verseCard {
+  min-height:80px; padding:1rem; margin-top:1rem;
+  background:rgba(255,255,255,.15); border-left:4px solid var(--purple);
+  font-style:italic; border-radius:8px; opacity:0; transition:.4s;
+}
+#verseCard.visible {opacity:1;}
+
+textarea {
+  width:100%; height:120px; margin-top:1rem;
+  border:none; border-radius:8px; padding:8px;
+}
+#musicToggle,#darkToggle {
+  position:fixed; top:1rem; width:40px; height:40px;
+  border:none; border-radius:50%; font-size:1.2rem;
+}
+#musicToggle {right:1rem; background:rgba(108,99,255,.6)}
+#darkToggle {right:4.2rem; background:rgba(255,255,255,.4)}
+</style>
 </head>
 <body>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">&lt;!DOCTYPE html&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">&lt;html lang="en"&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">&lt;head&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">&lt;meta charset="UTF-8" /&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">&lt;title&gt;FaithMoods 2.0&lt;/title&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">&lt;link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&amp;display=swap" rel="stylesheet" /&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">&lt;style&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">:root {</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>--purple: #6C63FF;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>--glass-bg: rgba(255,255,255,0.2);</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>--shadow: 0 4px 30px rgba(0,0,0,0.1);</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>--blur: blur(10px);</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">}</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">body {</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>margin:0; font-family:'Poppins',sans-serif; overflow-x:hidden;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>background:linear-gradient(120deg,#6C63FF,#8E2DE2,#4A00E0);</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>background-size:400% 400%;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>animation:bgShift 12s ease infinite;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>color:#fff; min-height:100vh; display:flex; flex-direction:column; align-items:center;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">}</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">@keyframes bgShift { 0%{background-position:0 50%} 50%{background-position:100% 50%} 100%{background-position:0 50%}}</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">#intro {</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>position:fixed; top:0; left:0; right:0; bottom:0;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>display:flex; align-items:center; justify-content:center;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>background:linear-gradient(120deg,#6C63FF,#8E2DE2,#4A00E0);</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>animation:bgShift 12s ease infinite;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>z-index:999; flex-direction:column; color:white; font-weight:600;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">}</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">.fadeOut {animation:fadeOut 2s forwards;}</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">@keyframes fadeOut {to{opacity:0; visibility:hidden;}}</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">header {</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>width:100%; text-align:center; padding:1.5rem 0; font-weight:600; font-size:1.8rem;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">}</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">header small {display:block; font-weight:300; font-size:1rem;}</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">.container {</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>display:flex; flex-wrap:wrap; justify-content:center; gap:2rem; width:90%; max-width:1200px; margin:auto;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">}</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">.panel {</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>background:var(--glass-bg);</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>box-shadow:var(--shadow);</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>backdrop-filter:var(--blur);</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>border-radius:1rem; padding:1.5rem; flex:1; min-width:280px;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>color:#fff;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">}</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">button {</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>cursor:pointer; border:none; border-radius:0.5rem;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>background:var(--purple); color:white; padding:0.6rem 1rem; margin:0.3rem 0;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>font-size:0.9rem; transition:0.3s;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">}</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">button:hover {opacity:0.85;}</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">#emotions li {</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>list-style:none; background:rgba(255,255,255,0.15);</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>margin:0.3rem 0; padding:0.5rem 0.75rem; border-radius:0.5rem;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>transition:0.3s; cursor:pointer;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">}</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">#emotions li:hover {background:rgba(255,255,255,0.3);}</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">#verseCard {</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>background:rgba(255,255,255,0.1);</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>border-left:4px solid var(--purple);</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>padding:1rem; border-radius:0.5rem;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>font-style:italic; min-height:80px; margin-top:1rem;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>opacity:0; transition:opacity 0.6s;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">}</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">#verseCard.visible {opacity:1;}</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">#controls {display:flex; gap:0.5rem; margin-top:1rem; flex-wrap:wrap;}</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">input, textarea {</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>width:100%; border:none; border-radius:0.5rem;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>padding:0.5rem; margin-top:0.5rem;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>font-family:'Poppins',sans-serif;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">}</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">#musicToggle, #darkToggle {</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>position:fixed; top:1rem; width:2.5rem; height:2.5rem;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>border-radius:50%; border:none;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>color:#fff; font-size:1.2rem;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>display:flex; align-items:center; justify-content:center;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>backdrop-filter:blur(8px);</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">}</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">#musicToggle { right:1rem; background:rgba(108,99,255,0.6);}</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">#darkToggle { right:4.2rem; background:rgba(255,255,255,0.3);}</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">.dark body{background:#111;color:#eee;}</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">&lt;/style&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">&lt;/head&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">&lt;body&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">&lt;div id="intro"&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>&lt;h1&gt;FaithMoods&lt;/h1&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>&lt;small&gt;Find clarity in Scripture&lt;/small&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>&lt;button id="startBtn"&gt;Start&lt;/button&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">&lt;/div&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff; min-height: 28.0px"><span class="s1"></span><br></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">&lt;header&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>&lt;h1&gt;FaithMoods&lt;/h1&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>&lt;small&gt;Find clarity in Scripture&lt;/small&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">&lt;/header&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff; min-height: 28.0px"><span class="s1"></span><br></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">&lt;div class="container"&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>&lt;div class="panel"&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">    </span>&lt;h2&gt;Emotions&lt;/h2&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">    </span>&lt;ul id="emotions"&gt;&lt;/ul&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>&lt;div class="panel"&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div id="reasons"&gt;&lt;/div&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div id="verseCard"&gt;&lt;/div&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div id="controls"&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">      </span>&lt;button id="prevVerseBtn"&gt;Previous&lt;/button&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">      </span>&lt;button id="nextVerseBtn"&gt;Next&lt;/button&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">      </span>&lt;button id="favBtn"&gt;Save Favorite&lt;/button&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">      </span>&lt;button id="shareBtn"&gt;Share&lt;/button&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">    </span>&lt;textarea id="journal" placeholder="Write your reflection here..."&gt;&lt;/textarea&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">&lt;/div&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff; min-height: 28.0px"><span class="s1"></span><br></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">&lt;button id="musicToggle"&gt;🔊&lt;/button&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">&lt;button id="darkToggle"&gt;🌙&lt;/button&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff; min-height: 28.0px"><span class="s1"></span><br></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">&lt;audio id="bgMusic" loop src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9abfc8e8c5.mp3?filename=ambient-piano-and-pad-112199.mp3"&gt;&lt;/audio&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff; min-height: 28.0px"><span class="s1"></span><br></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">&lt;script type="module"&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js';</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">import { getFirestore, collection, doc, getDoc, getDocs } from 'https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js';</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff; min-height: 28.0px"><span class="s1"></span><br></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">/* ---------- FIREBASE CONFIG ---------- */</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">const firebaseConfig = {</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>apiKey: "AIzaSyCqwVQx8NbHucvpYmftMG3uSsTFQ5WBWM0",</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>authDomain: "soultabs-c814d.firebaseapp.com",</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>projectId: "soultabs-c814d",</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>storageBucket: "soultabs-c814d.firebasestorage.app",</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>messagingSenderId: "51287038225",</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>appId: "1:51287038225:web:f8afac352a833f362214b0",</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>measurementId: "G-B24FPHB1GC"</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">};</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">const app = initializeApp(firebaseConfig);</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">const db = getFirestore(app);</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff; min-height: 28.0px"><span class="s1"></span><br></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">/* ---------- INTRO ---------- */</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">window.addEventListener('load',()=&gt;{</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>const startBtn=document.getElementById('startBtn');</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>startBtn.addEventListener('click',()=&gt;{</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">    </span>document.getElementById('intro').classList.add('fadeOut');</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">    </span>startMusic();</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">    </span>loadEmotions();</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>});</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">});</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff; min-height: 28.0px"><span class="s1"></span><br></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">/* ---------- MUSIC TOGGLE ---------- */</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">const music=document.getElementById('bgMusic');</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">const toggle=document.getElementById('musicToggle');</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">function startMusic(){</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>music.volume=0.15; music.play().catch(()=&gt;{});</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">}</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">toggle.addEventListener('click',()=&gt;{</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>if(music.paused){music.play();toggle.textContent='🔊';}</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>else{music.pause();toggle.textContent='🔇';}</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">});</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff; min-height: 28.0px"><span class="s1"></span><br></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">/* ---------- DARK MODE ---------- */</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">const darkBtn=document.getElementById('darkToggle');</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">let dark=false;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">darkBtn.addEventListener('click',()=&gt;{</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>dark=!dark;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>document.body.style.background=dark?'#111':'';</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>document.body.style.color=dark?'#eee':'#fff';</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>darkBtn.textContent=dark?'☀️':'🌙';</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">});</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff; min-height: 28.0px"><span class="s1"></span><br></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">/* ---------- FIRESTORE LOGIC ---------- */</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">let currentVerses=[],currentIndex=0;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">async function loadEmotions(){</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>const snapshot=await getDocs(collection(db,'emotions'));</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>const list=document.getElementById('emotions'); list.innerHTML='';</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>snapshot.forEach(docSnap=&gt;{</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">    </span>const li=document.createElement('li');</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">    </span>li.textContent=docSnap.id;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">    </span>li.onclick=()=&gt;loadReasons(docSnap.id);</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">    </span>list.appendChild(li);</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>});</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">}</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">async function loadReasons(emotion){</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>const snapshot=await getDocs(collection(db,`emotions/${emotion}/reasons`));</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>const div=document.getElementById('reasons');</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>div.innerHTML=`&lt;h2&gt;${emotion.toUpperCase()}&lt;/h2&gt;`;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>snapshot.forEach(docSnap=&gt;{</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">    </span>const btn=document.createElement('button');</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">    </span>btn.textContent=docSnap.id.replace(/_/g,' ');</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">    </span>btn.onclick=()=&gt;showVerse(emotion,docSnap.id);</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">    </span>div.appendChild(btn);</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>});</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>document.getElementById('verseCard').textContent='';</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">}</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">async function showVerse(emotion,reason){</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>const reasonDoc=await getDoc(doc(db,`emotions/${emotion}/reasons/${reason}`));</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>const verses=reasonDoc.data().verses;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>if(Array.isArray(verses)){currentVerses=verses;}</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>else if(typeof verses==='string'){currentVerses=verses.split(/\r?\n/).filter(v=&gt;v.trim()!=='');}</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>currentIndex=Math.floor(Math.random()*currentVerses.length);</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>displayVerse();</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">}</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">function displayVerse(){</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>const card=document.getElementById('verseCard');</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>if(!currentVerses.length){card.textContent='No verse found';return;}</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>card.classList.remove('visible');</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>setTimeout(()=&gt;{</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">    </span>card.textContent=currentVerses[currentIndex];</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">    </span>card.classList.add('visible');</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>},200);</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">}</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">document.getElementById('nextVerseBtn').onclick=()=&gt;{if(currentVerses.length){currentIndex=(currentIndex+1)%currentVerses.length;displayVerse();}};</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">document.getElementById('prevVerseBtn').onclick=()=&gt;{if(currentVerses.length){currentIndex=(currentIndex-1+currentVerses.length)%currentVerses.length;displayVerse();}};</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff; min-height: 28.0px"><span class="s1"></span><br></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">/* ---------- FAVORITES / SHARE / JOURNAL ---------- */</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">const favBtn=document.getElementById('favBtn');</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">const shareBtn=document.getElementById('shareBtn');</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">const journal=document.getElementById('journal');</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">favBtn.onclick=()=&gt;{</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>if(!currentVerses.length)return;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>const favs=JSON.parse(localStorage.getItem('favorites')||'[]');</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>favs.push(currentVerses[currentIndex]);</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>localStorage.setItem('favorites',JSON.stringify(favs));</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>alert('Saved to favorites!');</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">};</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">shareBtn.onclick=()=&gt;{</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>if(!currentVerses.length)return;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>navigator.clipboard.writeText(currentVerses[currentIndex]);</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1"><span class="Apple-converted-space">  </span>alert('Verse copied to clipboard!');</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">};</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">journal.addEventListener('input',()=&gt;localStorage.setItem('journal',journal.value));</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">journal.value=localStorage.getItem('journal')||'';</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">&lt;/script&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">&lt;/body&gt;</span></h1>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff"><span class="s1">&lt;/html&gt;</span></h1>
+
+<div id="intro">
+  <h1>FaithMoods</h1>
+  <small>Find clarity in Scripture</small>
+  <button id="startBtn">Start</button>
+</div>
+
+<header>
+  <h1>FaithMoods</h1>
+  <small>Find clarity in Scripture</small>
+</header>
+
+<div class="container">
+  <div class="panel">
+    <h2>Emotions</h2>
+    <ul id="emotions"></ul>
+  </div>
+  <div class="panel">
+    <div id="reasons"></div>
+    <div id="verseCard"></div>
+
+    <div style="margin-top:1rem">
+      <button id="prevVerseBtn">Prev</button>
+      <button id="nextVerseBtn">Next</button>
+      <button id="favBtn">❤ Save</button>
+      <button id="shareBtn">📤 Share</button>
+    </div>
+
+    <textarea id="journal" placeholder="Your thoughts here..."></textarea>
+  </div>
+</div>
+
+<button id="musicToggle">🔊</button>
+<button id="darkToggle">🌙</button>
+
+<audio id="bgMusic" loop src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9abfc8e8c5.mp3?filename=ambient-piano-and-pad-112199.mp3"></audio>
+
+<script type="module">
+/* FIREBASE */
+import { initializeApp } 
+from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+
+import { getFirestore, collection, doc, getDoc, getDocs }
+from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCqwVQx8NbHucvpYmftMG3uSsTFQ5WBWM0",
+  authDomain: "soultabs-c814d.firebaseapp.com",
+  projectId: "soultabs-c814d",
+  storageBucket: "soultabs-c814d.firebasestorage.app",
+  messagingSenderId: "51287038225",
+  appId: "1:51287038225:web:f8afac352a833f362214b0",
+  measurementId: "G-B24FPHB1GC"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+/* INTRO */
+document.getElementById("startBtn").onclick = () => {
+  document.getElementById("intro").classList.add("fadeOut");
+  startMusic();
+  loadEmotions();
+};
+
+/* MUSIC */
+const music = document.getElementById("bgMusic");
+document.getElementById("musicToggle").onclick = () => {
+  if(music.paused){music.play();} else {music.pause();}
+};
+
+/* DARK MODE */
+document.getElementById("darkToggle").onclick = () => {
+  document.body.classList.toggle("dark");
+};
+
+/* FIRESTORE */
+let verses = [], index = 0;
+
+async function loadEmotions(){
+  const snap = await getDocs(collection(db,"emotions"));
+  const list = document.getElementById("emotions");
+  list.innerHTML = "";
+  snap.forEach(d=>{
+    const li = document.createElement("li");
+    li.textContent = d.id;
+    li.onclick = () => loadReasons(d.id);
+    list.appendChild(li);
+  });
+}
+
+async function loadReasons(em){
+  const snap = await getDocs(collection(db,`emotions/${em}/reasons`));
+  const div = document.getElementById("reasons");
+  div.innerHTML = `<h2>${em.toUpperCase()}</h2>`;
+  snap.forEach(r=>{
+    const b = document.createElement("button");
+    b.textContent = r.id.replace(/_/g," ");
+    b.onclick = () => showVerse(em,r.id);
+    div.appendChild(b);
+  });
+}
+
+async function showVerse(em,reason){
+  const ref = doc(db,`emotions/${em}/reasons/${reason}`);
+  const data = (await getDoc(ref)).data();
+  verses = Array.isArray(data.verses)
+    ? data.verses
+    : data.verses.split(/\n/).filter(v=>v.trim()!="");
+  index = Math.floor(Math.random()*verses.length);
+  displayVerse();
+}
+
+function displayVerse(){
+  const card = document.getElementById("verseCard");
+  card.textContent = verses[index];
+  card.classList.add("visible");
+}
+
+document.getElementById("nextVerseBtn").onclick = ()=>{
+  if(!verses.length) return;
+  index = (index+1)%verses.length; displayVerse();
+};
+
+document.getElementById("prevVerseBtn").onclick = ()=>{
+  if(!verses.length) return;
+  index = (index-1+verses.length)%verses.length; displayVerse();
+};
+
+/* SAVE / SHARE / JOURNAL */
+document.getElementById("favBtn").onclick = ()=>{
+  if(!verses.length) return;
+  const s = JSON.parse(localStorage.getItem("favorites")||"[]");
+  s.push(verses[index]);
+  localStorage.setItem("favorites",JSON.stringify(s));
+  alert("Saved ❤️");
+};
+
+document.getElementById("shareBtn").onclick = ()=>{
+  navigator.clipboard.writeText(verses[index]);
+  alert("Copied to clipboard 📋");
+};
+
+const journal = document.getElementById("journal");
+journal.value = localStorage.getItem("journal")||"";
+journal.oninput = ()=>localStorage.setItem("journal",journal.value);
+
+/* AUTO MUSIC */
+function startMusic(){music.volume=.18; music.play().catch(()=>{});}
+</script>
 </body>
 </html>
