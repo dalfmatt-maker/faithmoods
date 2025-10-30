@@ -130,10 +130,19 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 /* INTRO */
-document.getElementByIdstartBtn.addEventListener('click',() =>{
-  document.getElementById('intro').style.display = "none"; // bypass fade
-  startMusic();
-  loadEmotions();
+document.addEventListener("DOMContentLoaded", () => {
+  const startBtn = document.getElementById("startBtn");
+
+  if (startBtn) {
+    startBtn.addEventListener("click", () => {
+      const intro = document.getElementById("intro");
+      if (intro) intro.style.display = "none"; // hide intro
+      startMusic();
+      loadEmotions();
+    });
+  } else {
+    console.error("Start button not found in DOM.");
+  }
 });
 
 /* MUSIC */
