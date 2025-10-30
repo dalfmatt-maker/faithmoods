@@ -220,6 +220,8 @@ journal.oninput = ()=>localStorage.setItem("journal",journal.value);
 
 /* AUTO MUSIC */
 function startMusic(){music.volume=.18; music.play().catch(()=>{});}
+  document.getElementById('intro').style.display = "none";
+loadEmotions();
 </script>
 </body>
 </html>
