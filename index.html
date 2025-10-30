@@ -130,11 +130,11 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 /* INTRO */
-document.getElementById("startBtn").onclick = () => {
-  document.getElementById("intro").classList.add("fadeOut");
+document.getElementByIdstartBtn.addEventListener('click',() =>{
+  document.getElementById('intro').style.display = "none"; // bypass fade
   startMusic();
   loadEmotions();
-};
+});
 
 /* MUSIC */
 const music = document.getElementById("bgMusic");
