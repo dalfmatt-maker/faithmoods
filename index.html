@@ -1,149 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>FaithMoods</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"/>
 
 <style>
+:root {
+  --bg1: #6C63FF;
+  --bg2: #8E2DE2;
+  --bg3: #4A00E0;
+  --card: rgba(255,255,255,0.2);
+  --text: #fff;
+}
+
 body {
   margin:0;
   font-family:'Poppins',sans-serif;
-  background:linear-gradient(120deg,#6C63FF,#8E2DE2,#4A00E0);
-  background-size:400% 400%;
-  animation:bgShift 12s ease infinite;
-  color:#fff;
+  background:linear-gradient(120deg,var(--bg1),var(--bg2),var(--bg3));
+  background-size:300% 300%;
+  animation:movebg 12s infinite alternate;
+  color:var(--text);
   overflow-x:hidden;
 }
 
-@keyframes bgShift {
-  0%{background-position:0 50%} 
-  50%{background-position:100% 50%} 
-  100%{background-position:0 50%}
+@keyframes movebg{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
 }
 
-header {
-  text-align:center;
-  padding:1.2rem 0;
-  font-size:1.7rem;
-  font-weight:600;
-}
-
-.container {
-  width:90%;
-  max-width:900px;
-  margin:auto;
-}
+.screen { display:none; padding:20px; }
+.active { display:block; }
 
 .card {
-  background:rgba(255,255,255,0.15);
-  backdrop-filter:blur(10px);
-  border-radius:1rem;
-  padding:1.2rem;
-  margin-bottom:1rem;
+  backdrop-filter: blur(12px);
+  background: var(--card);
+  padding:18px;
+  border-radius:14px;
+  margin-bottom:18px;
 }
 
 button {
+  padding:8px 14px;
   border:none;
+  border-radius:6px;
   background:#6C63FF;
-  padding:0.5rem 0.9rem;
-  border-radius:0.5rem;
-  margin:0.2rem;
-  color:#fff;
+  color:white;
   cursor:pointer;
+  margin:4px;
 }
 
-#bottomNav {
+button:hover { opacity:.85; }
+
+ul { padding-left:18px; }
+
+textarea {
+  width:100%;
+  height:120px;
+  border-radius:8px;
+  border:none;
+  padding:10px;
+  font-family:'Poppins';
+}
+
+.bottom-nav {
   position:fixed;
   bottom:0;
   left:0;
   right:0;
-  background:rgba(0,0,0,0.25);
+  background:rgba(0,0,0,.25);
+  backdrop-filter: blur(10px);
   display:flex;
   justify-content:space-around;
-  backdrop-filter:blur(8px);
-  padding:0.6rem 0;
+  padding:10px 0;
 }
 
-.nav-item {
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  font-size:0.75rem;
+.bottom-nav button {
+  background:none;
+  font-size:13px;
+  flex:1;
   color:white;
 }
-.nav-item span {
-  font-size:1.3rem;
+
+.dark {
+  --bg1:#111;
+  --bg2:#222;
+  --bg3:#000;
+  --text:#eee;
 }
 
-/* hidden screens */
-.screen {
-  display:none;
-}
-.active {
-  display:block;
-}
+.hidden { display:none; }
+
+h2,h3 { margin-top:0; }
 </style>
 </head>
 
 <body>
+<!-- Intro / Auth -->
+<div id="screenAuth" class="screen active">
+  <h1>FaithMoods</h1>
+  <p>Find clarity in Scripture</p>
+  <button id="btnGuest">Continue as Guest</button>
+  <button id="btnGoogle">Sign in with Google</button>
+</div>
 
-<header>FaithMoods</header>
+<!-- Home -->
+<div id="screenHome" class="screen">
+  <h2>Emotions</h2>
+  <div class="card"><ul id="emotionList"></ul></div>
 
-<div class="container">
-  
-  <!-- Home Screen -->
-  <div id="homeScreen" class="screen active">
-    <div class="card">
-      <h2>Emotions</h2>
-      <ul id="emotions"></ul>
-    </div>
-
-    <div class="card">
-      <div id="verseBox" style="min-height:100px;"></div>
-      <button id="prevVerse">Prev</button>
-      <button id="nextVerse">Next</button>
-      <button id="saveVerse">❤️ Save</button>
-      <button id="shareVerse">📤 Share</button>
-      <textarea id="journal" placeholder="Write your reflection..." style="width:100%; margin-top:10px; height:100px;"></textarea>
-    </div>
+  <div id="reasonBox" class="card hidden">
+    <h3 id="selectedEmotion"></h3>
+    <div id="reasonButtons"></div>
   </div>
 
-  <!-- Favorites Screen -->
-  <div id="favoritesScreen" class="screen">
-    <div class="card">
-      <h2>Favorites</h2>
-      <ul id="favoriteList"></ul>
-    </div>
+  <div id="verseBox" class="card hidden">
+    <p id="verseText"></p>
+    <button id="btnPrev">Prev</button>
+    <button id="btnNext">Next</button>
+    <button id="btnFav">❤️ Save</button>
+    <button id="btnShareVerse">📤 Share</button>
   </div>
 
-  <!-- Profile Screen -->
-  <div id="profileScreen" class="screen">
-    <div class="card">
-      <h2>Profile</h2>
-      <button id="googleLogin">Sign In With Google</button>
-      <button id="signOutBtn">Sign Out</button>
-      <button id="toggleTheme">Toggle Dark / Light</button>
-    </div>
+  <div class="card">
+    <textarea id="miniJournal" placeholder="Write your reflection..."></textarea>
   </div>
+</div>
 
+<!-- Favorites -->
+<div id="screenFav" class="screen">
+  <h2>Favorites</h2>
+  <div id="favContainer"></div>
+</div>
+
+<!-- Journal -->
+<div id="screenJournal" class="screen">
+  <h2>Journal</h2>
+  <textarea id="bigJournal"></textarea><br/>
+  <button id="btnExportJournal">Export</button>
+</div>
+
+<!-- Profile -->
+<div id="screenProfile" class="screen">
+  <h2>Profile</h2>
+  <p id="profileEmail"></p>
+  <p>🔥 Streak: <span id="streakCount"></span> days</p>
+  <input id="verseOfWeek" placeholder="Verse of the Week"/>
+  <button id="saveVOW">Save</button>
+</div>
+
+<!-- Settings -->
+<div id="screenSettings" class="screen">
+  <h2>Settings</h2>
+  <button id="toggleTheme">Toggle Dark/Light</button><br/>
+  <button id="toggleMusic">Music On/Off</button><br/>
+  <button id="toggleSound">Click Sound On/Off</button>
 </div>
 
 <!-- Bottom Nav -->
-<div id="bottomNav">
-  <div class="nav-item" onclick="showScreen('homeScreen')"><span>🏠</span>Home</div>
-  <div class="nav-item" onclick="showScreen('favoritesScreen')"><span>⭐</span>Favorites</div>
-  <div class="nav-item" onclick="showScreen('profileScreen')"><span>👤</span>Profile</div>
+<div class="bottom-nav hidden" id="navBar">
+  <button data-screen="screenHome">🏠<br/>Home</button>
+  <button data-screen="screenFav">⭐<br/>Favorites</button>
+  <button data-screen="screenJournal">📓<br/>Journal</button>
+  <button data-screen="screenProfile">👤<br/>Profile</button>
+  <button data-screen="screenSettings">⚙️<br/>Settings</button>
 </div>
 
+<!-- Audio -->
+<audio id="bgMusic" loop>
+  <source src="assets/audio/ambient.mp3" type="audio/mpeg">
+</audio>
+<audio id="clickSound">
+  <source src="assets/audio/click.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Firebase -->
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-import { getFirestore, collection, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
-import { 
-  getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged 
-} from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+import { getFirestore, collection, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCqwVQx8NbHucvpYmftMG3uSsTFQ5WBWM0",
@@ -158,88 +195,131 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth();
+const provider = new GoogleAuthProvider();
 
-function showScreen(screen) {
-  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+/* UI refs */
+const screens = document.querySelectorAll(".screen");
+const nav = document.getElementById("navBar");
+
+function show(screen){
+  screens.forEach(s=>s.classList.remove("active"));
   document.getElementById(screen).classList.add("active");
 }
 
-// Load Emotions
-async function loadEmotions() {
-  const snapshot = await getDocs(collection(db, "emotions"));
-  const list = document.getElementById("emotions");
-  list.innerHTML = "";
-  snapshot.forEach(d => {
-    let li = document.createElement("li");
-    li.style.cursor="pointer";
-    li.textContent = d.id;
-    li.onclick = () => loadVerse(d.id);
+/* Auth */
+document.getElementById("btnGuest").onclick = ()=>finishLogin("Guest");
+document.getElementById("btnGoogle").onclick = ()=>signInWithPopup(auth,provider).then(r=>finishLogin(r.user.email));
+
+function finishLogin(email){
+  localStorage.setItem("user",email);
+  document.getElementById("profileEmail").textContent=email;
+  nav.classList.remove("hidden");
+  show("screenHome");
+}
+
+/* Load emotions */
+async function loadEmotions(){
+  const snap = await getDocs(collection(db,"emotions"));
+  const list=document.getElementById("emotionList");
+  list.innerHTML="";
+  snap.forEach(doc=>{
+    const li=document.createElement("li");
+    li.textContent=doc.id;
+    li.onclick=()=>selectEmotion(doc.id);
     list.appendChild(li);
   });
 }
 loadEmotions();
 
-// Load Verse
-let verses = [];
-let index = 0;
-
-async function loadVerse(emotion) {
-  const snap = await getDocs(collection(db, `emotions/${emotion}/reasons`));
-  let docId = snap.docs[0].id;
-  const docRef = await getDoc(doc(db, `emotions/${emotion}/reasons/${docId}`));
-  verses = docRef.data().verses.split("\n");
-  index = 0;
-  displayVerse();
+/* emotion -> reasons -> verses */
+let verses=[], idx=0;
+async function selectEmotion(e){
+  document.getElementById("selectedEmotion").textContent="Why are you feeling "+e+"?";
+  const snap = await getDocs(collection(db,`emotions/${e}/reasons`));
+  const box = document.getElementById("reasonButtons");
+  box.innerHTML="";
+  snap.forEach(d=>{
+    const b=document.createElement("button");
+    b.textContent=d.id.replace(/_/g," ");
+    b.onclick=()=>loadVerses(e,d.id);
+    box.appendChild(b);
+  });
+  document.getElementById("reasonBox").classList.remove("hidden");
+  document.getElementById("verseBox").classList.add("hidden");
 }
-
-function displayVerse() {
-  document.getElementById("verseBox").textContent = verses[index];
+async function loadVerses(e,r){
+  const ref=await getDoc(doc(db,`emotions/${e}/reasons/${r}`));
+  verses = ref.data().verses;
+  idx = 0;
+  showVerse();
+  document.getElementById("verseBox").classList.remove("hidden");
 }
-
-document.getElementById("nextVerse").onclick = () => { if(verses.length){ index=(index+1)%verses.length; displayVerse(); }};
-document.getElementById("prevVerse").onclick = () => { if(verses.length){ index=(index-1+verses.length)%verses.length; displayVerse(); }};
-
-// Favorites
-document.getElementById("saveVerse").onclick = () => {
-  let favs = JSON.parse(localStorage.getItem("favs")||"[]");
-  favs.push(verses[index]);
-  localStorage.setItem("favs", JSON.stringify(favs));
-  renderFavorites();
+function showVerse(){
+  document.getElementById("verseText").textContent = verses[idx];
+}
+document.getElementById("btnPrev").onclick=()=>{idx=(idx-1+verses.length)%verses.length;showVerse();}
+document.getElementById("btnNext").onclick=()=>{idx=(idx+1)%verses.length;showVerse();}
+document.getElementById("btnFav").onclick=()=>{
+  let f=JSON.parse(localStorage.getItem("favs")||"[]");
+  f.push(verses[idx]);
+  localStorage.setItem("favs",JSON.stringify(f));
+  refreshFavs();
 };
+document.getElementById("btnShareVerse").onclick=()=>navigator.clipboard.writeText(verses[idx]);
 
-function renderFavorites() {
-  let favs = JSON.parse(localStorage.getItem("favs")||"[]");
-  let list = document.getElementById("favoriteList");
-  list.innerHTML = "";
-  favs.forEach(f => {
-    let li = document.createElement("li");
-    li.textContent = f;
-    list.appendChild(li);
+/* Favorites */
+function refreshFavs(){
+  const c=document.getElementById("favContainer");
+  const f=JSON.parse(localStorage.getItem("favs")||"[]");
+  c.innerHTML="";
+  f.forEach(v=>{
+    const p=document.createElement("p");
+    p.textContent=v;
+    c.appendChild(p);
   });
 }
-renderFavorites();
+refreshFavs();
 
-// Share
-document.getElementById("shareVerse").onclick = () => {
-  navigator.clipboard.writeText(verses[index]);
-  alert("Verse copied!");
-};
+/* Journals */
+document.getElementById("miniJournal").oninput=e=>localStorage.setItem("miniJ",e.target.value);
+document.getElementById("bigJournal").oninput=e=>localStorage.setItem("bigJ",e.target.value);
+document.getElementById("miniJournal").value=localStorage.getItem("miniJ")||"";
+document.getElementById("bigJournal").value=localStorage.getItem("bigJ")||"";
+document.getElementById("btnExportJournal").onclick=()=>{
+  const blob=new Blob([document.getElementById("bigJournal").value],{type:"text/plain"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);a.download="journal.txt";a.click();
+}
 
-// Journal
-document.getElementById("journal").oninput = e => localStorage.setItem("journal", e.target.value);
-document.getElementById("journal").value = localStorage.getItem("journal")||"";
+/* Verse of week */
+document.getElementById("verseOfWeek").value=localStorage.getItem("vow")||"";
+document.getElementById("saveVOW").onclick=()=>localStorage.setItem("vow",document.getElementById("verseOfWeek").value);
 
-// Google Auth
-const provider = new GoogleAuthProvider();
-document.getElementById("googleLogin").onclick = () => signInWithPopup(auth,provider);
-document.getElementById("signOutBtn").onclick = () => signOut(auth);
-onAuthStateChanged(auth,(user)=>{});
+/* Streak */
+let streak = +localStorage.getItem("streak")||1;
+localStorage.setItem("streak",streak);
+document.getElementById("streakCount").textContent=streak;
 
-// Theme
-document.getElementById("toggleTheme").onclick = () => {
-  document.body.style.filter = document.body.style.filter ? "" : "invert(1)";
-};
+/* Theme */
+document.getElementById("toggleTheme").onclick=()=>{
+  document.body.classList.toggle("dark");
+}
+
+/* Music + click */
+const music=document.getElementById("bgMusic");
+const clickS=document.getElementById("clickSound");
+let musicOn=false,soundOn=true;
+
+document.getElementById("toggleMusic").onclick=()=>{
+  musicOn=!musicOn;
+  musicOn?music.play():music.pause();
+}
+document.getElementById("toggleSound").onclick=()=>soundOn=!soundOn;
+
+document.body.addEventListener("click",()=>{ if(soundOn) clickS.play().catch(()=>{}); },true);
+
+/* Navigation */
+document.querySelectorAll(".bottom-nav button").forEach(b=>b.onclick=()=>show(b.dataset.screen));
 </script>
-
 </body>
 </html>
