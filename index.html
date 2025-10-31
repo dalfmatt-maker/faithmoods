@@ -2,462 +2,89 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>FaithMoods 2.0</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>FaithMoods</title>
 
-<!-- Inline favicon (prevents 404) -->
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E🙏%3C/text%3E%3C/svg%3E">
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#6C63FF">
+
+<!-- Icons -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2290%22>🙏</text></svg>">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
-
 <style>
+/* ——— minimalist styling (core only) ——— */
 :root {
-  --purple:#6C63FF; --purple2:#8E2DE2; --purple3:#4A00E0;
-  --glass:rgba(255,255,255,.16);
-  --shadow:0 10px 30px rgba(0,0,0,.15);
+  --primary:#6C63FF; --glass:rgba(255,255,255,.16);
 }
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0; font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-  color:#fff; background:linear-gradient(120deg,var(--purple),var(--purple2),var(--purple3));
-  background-size:400% 400%; animation:bg 14s ease infinite;
-  display:flex; flex-direction:column; align-items:center;
+body {
+  margin:0; font-family:Poppins,sans-serif; color:#fff;
+  background:linear-gradient(120deg,#6C63FF,#8E2DE2,#4A00E0);
+  background-size:400% 400%;
+  animation:bg 14s ease infinite; text-align:center;
 }
-@keyframes bg{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
+@keyframes bg{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 
-button{
-  appearance:none; border:none; border-radius:12px; padding:.7rem 1rem; cursor:pointer;
-  background:var(--glass); color:#fff; backdrop-filter:blur(10px);
-  box-shadow:var(--shadow); transition:.18s ease transform, .18s ease opacity, .18s ease background;
+button {
+  padding:.7rem 1rem; border:none; border-radius:10px; cursor:pointer;
+  background:var(--primary); color:white; font-size:1rem;
 }
-button:hover{background:rgba(255,255,255,.24)}
-button:active{transform:scale(.98); opacity:.9}
-.btn-primary{background:#6C63FF}
-.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,.35)}
-.small{padding:.45rem .7rem;border-radius:10px;font-size:.9rem}
+.panel {margin:1rem auto; max-width:500px; background:var(--glass);
+padding:1rem; border-radius:14px; backdrop-filter:blur(12px);}
+ul{list-style:none;padding:0}
+li{background:rgba(255,255,255,.18);margin:.4rem;padding:.6rem;border-radius:10px;}
 
-header{margin-top:3.5rem;text-align:center}
-header h1{margin:0;font-size:2.2rem;font-weight:700;letter-spacing:.3px}
-header small{opacity:.9}
-
-.container{width:clamp(280px,92%,1150px); display:flex; gap:1.2rem; flex-wrap:wrap; margin:1.6rem auto 3rem}
-.panel{
-  flex:1 1 320px; background:var(--glass); padding:1.2rem 1.2rem; border-radius:18px;
-  backdrop-filter:blur(12px); box-shadow:var(--shadow); min-height:140px;
+#intro {
+  position:fixed;inset:0;display:flex;flex-direction:column;justify-content:center;
+  background:inherit;animation:bg 14s infinite;z-index:100;
 }
-
-#intro{
-  position:fixed; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
-  text-align:center; background:inherit; animation:bg 14s ease infinite; z-index:9999;
-}
-#intro.fade{animation:fadeOut .8s ease forwards}
-@keyframes fadeOut{to{opacity:0;filter:blur(6px);visibility:hidden}}
-
-ul{list-style:none; padding:0; margin:0}
-#emotions li{
-  background:rgba(255,255,255,.20); margin:.35rem 0; padding:.7rem .9rem; border-radius:10px; cursor:pointer;
-}
-#emotions li:hover{background:rgba(255,255,255,.30)}
-
-#reasonBar{display:flex; gap:.5rem; flex-wrap:wrap; margin-top:.6rem}
-#reasonBar .chip{
-  background:rgba(255,255,255,.20); border-radius:999px; padding:.4rem .8rem; font-size:.92rem;
-}
-#reasonBar .chip:hover{background:rgba(255,255,255,.32)}
-
-#verseCard{
-  margin-top:1rem; padding:1rem; border-left:4px solid #6C63FF; border-radius:12px;
-  background:rgba(255,255,255,.12); min-height:88px; opacity:0; transform:translateY(4px);
-  transition:.25s ease opacity,.25s ease transform;
-}
-#verseCard.show{opacity:1; transform:none}
-#reference{opacity:.9; font-size:.95rem; margin-top:.25rem}
-
-.row{display:flex; gap:.5rem; flex-wrap:wrap; align-items:center; margin-top:.6rem}
-
-#musicToggle,#darkToggle,#favoritesBtn{
-  position:fixed; top:1rem; width:42px; height:42px; border-radius:50%;
-  display:grid; place-content:center; font-size:1.1rem;
-}
-#musicToggle{right:1rem}
-#darkToggle{right:4.2rem}
-#favoritesBtn{right:7.4rem}
-
-.dark{color:#f1f1f1}
-.dark body{background:#111}
-.dark .panel, .dark button{background:rgba(255,255,255,.08)}
-.dark #emotions li{background:rgba(255,255,255,.12)}
-.dark #verseCard{background:rgba(255,255,255,.10)}
-
-.modal{
-  position:fixed; inset:0; display:none; place-items:center; z-index:10000;
-  background:rgba(0,0,0,.42);
-}
-.modal.open{display:grid}
-.modal .sheet{
-  width:min(720px,92%); background:#1f1f28; color:#fff; border-radius:16px; padding:1rem 1rem 1.2rem;
-  box-shadow:var(--shadow);
-}
-.modal h3{margin:0 0 .4rem}
-.favorite{
-  background:#2a2a36; border-radius:12px; padding:.8rem; margin:.4rem 0; display:flex; gap:.6rem; align-items:center; justify-content:space-between;
-  word-break:break-word;
-}
-.favorite .meta{opacity:.85; font-size:.9rem}
-.actions{display:flex; gap:.4rem; flex-wrap:wrap}
-
-footer{opacity:.75; font-size:.85rem; margin-bottom:1rem}
+.fadeOut{animation:fade 1s forwards}
+@keyframes fade{to{opacity:0;visibility:hidden}}
 </style>
 </head>
-<body>
 
-<!-- Intro / splash -->
+<body>
 <div id="intro">
-  <h1 style="margin:0 0 .2rem">FaithMoods</h1>
-  <small>Find clarity in Scripture</small>
-  <div style="height:.9rem"></div>
-  <button id="startBtn" class="btn-primary">Start</button>
+  <h1>FaithMoods</h1>
+  <small>Find clarity in Scripture</small><br>
+  <button id="startBtn">Start</button>
+  <div id="authLine"></div>
 </div>
 
 <header>
-  <h1>FaithMoods</h1>
-  <small>Find clarity in Scripture</small>
+  <h2>FaithMoods</h2>
+  <small id="userLabel">Not signed in</small>
 </header>
 
-<div class="container">
-  <!-- Left: emotions -->
-  <div class="panel">
-    <h2 style="margin:.2rem 0 .6rem">Emotions</h2>
-    <ul id="emotions"></ul>
-  </div>
-
-  <!-- Right: reasons + verse + journal -->
-  <div class="panel">
-    <div id="contextTitle" style="font-weight:600"></div>
-    <div id="reasonBar" class="row"></div>
-
-    <div id="verseCard">
-      <div id="verseText"></div>
-      <div id="reference"></div>
-    </div>
-
-    <div class="row">
-      <button id="prevVerseBtn" class="small btn-ghost">Prev</button>
-      <button id="nextVerseBtn" class="small btn-ghost">Next</button>
-      <button id="saveFavBtn" class="small btn-primary">❤ Save</button>
-      <button id="shareBtn" class="small btn-ghost">📤 Share</button>
-    </div>
-
-    <textarea id="journal" placeholder="Your reflection… (auto-saves locally)"></textarea>
-    <div class="row">
-      <button id="exportJournalBtn" class="small btn-ghost">Export Journal (.txt)</button>
-      <button id="clearJournalBtn" class="small btn-ghost">Clear Journal</button>
-    </div>
-  </div>
+<div class="panel">
+  <h3>Emotions</h3>
+  <ul id="emotions"></ul>
 </div>
 
-<!-- Floating controls -->
-<button id="favoritesBtn" title="Favorites">⭐</button>
-<button id="darkToggle" title="Dark mode">🌙</button>
-<button id="musicToggle" title="Music">🔊</button>
-<audio id="bgMusic" preload="none" loop
-  src="https://files-for-cdn.netlify.app/audio/lofi-soft-pads.mp3"></audio>
+<div class="panel">
+  <h3 id="contextTitle"></h3>
+  <div id="reasonButtons"></div><br>
+  <div id="verseCard" style="display:none">
+    <div id="verseText"></div>
+    <small id="verseRef"></small>
+  </div><br>
 
-<!-- Favorites modal -->
-<div id="favModal" class="modal" aria-hidden="true">
-  <div class="sheet">
-    <div style="display:flex;justify-content:space-between;align-items:center">
-      <h3>Saved Favorites</h3>
-      <div class="actions">
-        <button id="clearFavsBtn" class="small btn-ghost">Clear all</button>
-        <button id="closeFavsBtn" class="small btn-primary">Close</button>
-      </div>
-    </div>
-    <div id="favList"></div>
-  </div>
+  <button id="prevBtn">Prev</button>
+  <button id="nextBtn">Next</button>
+  <button id="saveFavBtn">❤️ Save</button>
+  <button id="moodBtn">📝 Log Mood</button><br><br>
+  <textarea id="journal" placeholder="Your reflection..."></textarea>
+  <button id="exportJournal">Export Journal</button>
 </div>
 
-<footer>© FaithMoods</footer>
+<button id="favoritesBtn" style="position:fixed;bottom:1rem;right:1rem;">⭐</button>
+<div id="favoritesPanel" class="panel" style="display:none;position:fixed;top:20%;left:50%;transform:translateX(-50%);z-index:200;">
+  <h3>Favorites</h3>
+  <ul id="favList"></ul>
+  <button id="closeFavs">Close</button>
+</div>
 
-<script type="module">
-/* =========================
-   Firebase (Firestore)
-========================= */
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-import { getFirestore, collection, doc, getDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyCqwVQx8NbHucvpYmftMG3uSsTFQ5WBWM0",
-  authDomain: "soultabs-c814d.firebaseapp.com",
-  projectId: "soultabs-c814d",
-  storageBucket: "soultabs-c814d.firebasestorage.app",
-  messagingSenderId: "51287038225",
-  appId: "1:51287038225:web:f8afac352a833f362214b0",
-  measurementId: "G-B24FPHB1GC"
-};
-const app = initializeApp(firebaseConfig);
-const db  = getFirestore(app);
-
-/* =========================
-   DOM ready boot
-========================= */
-document.addEventListener("DOMContentLoaded", () => {
-  const startBtn = document.getElementById("startBtn");
-  startBtn?.addEventListener("click", onStart);
-});
-
-/* =========================
-   State
-========================= */
-let currentEmotion = null;
-let currentReason  = null;
-let currentVerses  = [];
-let index          = 0;
-
-/* =========================
-   UI Helpers
-========================= */
-function show(el){el.classList.add("show")}
-function hideIntro(){
-  const intro = document.getElementById("intro");
-  intro.classList.add("fade");
-  setTimeout(()=>{ intro.style.display="none"; }, 650);
-}
-function setContextTitle(){
-  const title = document.getElementById("contextTitle");
-  title.textContent = currentEmotion
-    ? `${currentEmotion.toUpperCase()}${currentReason ? " · " + prettify(currentReason) : ""}`
-    : "";
-}
-function prettify(s){ return String(s||"").replace(/_/g," ").replace(/\b\w/g, m => m.toUpperCase()); }
-
-function parseLineToParts(line){
-  // Support "Text — Reference" OR "Text (Ref)" OR plain Text
-  const emDash = line.split(" — ");
-  if (emDash.length >= 2){
-    return { text: emDash[0].trim(), ref: emDash.slice(1).join(" — ").trim() };
-  }
-  const m = line.match(/^(.*)\(([^)]+)\)\s*$/);
-  if (m) return { text: m[1].trim(), ref: m[2].trim() };
-  return { text: line.trim(), ref: "" };
-}
-
-function renderVerse(){
-  const card = document.getElementById("verseCard");
-  const vText = document.getElementById("verseText");
-  const ref   = document.getElementById("reference");
-  if (!currentVerses.length){
-    vText.textContent = "No verse found for this reason yet.";
-    ref.textContent = "";
-    show(card);
-    return;
-  }
-  const parts = parseLineToParts(currentVerses[index]);
-  vText.textContent = parts.text;
-  ref.textContent   = parts.ref ? parts.ref : "";
-  show(card);
-}
-
-/* =========================
-   Start flow
-========================= */
-async function onStart(){
-  hideIntro();
-  try { await startMusic(); } catch {}
-  await loadEmotions();
-}
-
-/* =========================
-   Music + Dark
-========================= */
-const music = document.getElementById("bgMusic");
-document.getElementById("musicToggle").addEventListener("click", async ()=>{
-  try{
-    if (music.paused){ await music.play(); }
-    else { music.pause(); }
-  }catch{}
-});
-async function startMusic(){
-  music.volume = .18;
-  try{ await music.play(); }catch{ /* user-gesture will enable */ }
-}
-
-document.getElementById("darkToggle").addEventListener("click", ()=>{
-  document.documentElement.classList.toggle("dark");
-});
-
-/* =========================
-   Favorites Modal
-========================= */
-const favModal   = document.getElementById("favModal");
-const favList    = document.getElementById("favList");
-const favBtn     = document.getElementById("favoritesBtn");
-const closeFavs  = document.getElementById("closeFavsBtn");
-const clearFavs  = document.getElementById("clearFavsBtn");
-
-favBtn.addEventListener("click", openFavs);
-closeFavs.addEventListener("click", closeFavsModal);
-clearFavs.addEventListener("click", ()=>{
-  localStorage.removeItem("favorites");
-  renderFavorites();
-});
-
-function openFavs(){ favModal.classList.add("open"); renderFavorites(); }
-function closeFavsModal(){ favModal.classList.remove("open"); }
-
-function renderFavorites(){
-  const favs = JSON.parse(localStorage.getItem("favorites")||"[]");
-  favList.innerHTML = "";
-  if (!favs.length){
-    favList.innerHTML = "<div class='favorite'><div>No favorites yet.</div></div>";
-    return;
-  }
-  favs.forEach((line, i)=>{
-    const parts = parseLineToParts(line);
-    const wrap = document.createElement("div");
-    wrap.className = "favorite";
-    wrap.innerHTML = `
-      <div>
-        <div>${parts.text}</div>
-        <div class="meta">${parts.ref || ""}</div>
-      </div>
-      <div class="actions">
-        <button class="small btn-ghost" data-copy="${encodeURIComponent(line)}">Copy</button>
-        <button class="small btn-ghost" data-remove="${i}">Remove</button>
-      </div>
-    `;
-    favList.appendChild(wrap);
-  });
-  favList.querySelectorAll("[data-copy]").forEach(btn=>{
-    btn.addEventListener("click", ()=>{
-      const raw = decodeURIComponent(btn.getAttribute("data-copy"));
-      navigator.clipboard.writeText(raw);
-      btn.textContent = "Copied!";
-      setTimeout(()=>btn.textContent="Copy",900);
-    });
-  });
-  favList.querySelectorAll("[data-remove]").forEach(btn=>{
-    btn.addEventListener("click", ()=>{
-      const idx = +btn.getAttribute("data-remove");
-      const favs = JSON.parse(localStorage.getItem("favorites")||"[]");
-      favs.splice(idx,1);
-      localStorage.setItem("favorites", JSON.stringify(favs));
-      renderFavorites();
-    });
-  });
-}
-
-/* =========================
-   Journal
-========================= */
-const journal = document.getElementById("journal");
-journal.value = localStorage.getItem("journal") || "";
-journal.addEventListener("input", ()=> localStorage.setItem("journal", journal.value));
-document.getElementById("exportJournalBtn").addEventListener("click", ()=>{
-  const blob = new Blob([journal.value], {type:"text/plain"});
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "faithmoods-journal.txt";
-  a.click();
-  URL.revokeObjectURL(a.href);
-});
-document.getElementById("clearJournalBtn").addEventListener("click", ()=>{
-  if (confirm("Clear journal?")) { journal.value=""; localStorage.removeItem("journal"); }
-});
-
-/* =========================
-   Firestore: Emotions -> Reasons -> Verses
-========================= */
-async function loadEmotions(){
-  const list = document.getElementById("emotions");
-  list.innerHTML = `<li>Loading…</li>`;
-  const snap = await getDocs(collection(db, "emotions"));
-  list.innerHTML = "";
-  if (snap.empty){
-    list.innerHTML = `<li>No emotions yet. Add some in Firestore.</li>`;
-    return;
-  }
-  snap.forEach(d=>{
-    const li = document.createElement("li");
-    li.textContent = d.id;
-    li.addEventListener("click", ()=> selectEmotion(d.id));
-    list.appendChild(li);
-  });
-}
-
-async function selectEmotion(emotion){
-  currentEmotion = emotion;
-  currentReason  = null;
-  currentVerses  = [];
-  index = 0;
-  setContextTitle();
-
-  const bar = document.getElementById("reasonBar");
-  bar.innerHTML = "Loading…";
-
-  const snap = await getDocs(collection(db, `emotions/${emotion}/reasons`));
-  bar.innerHTML = "";
-  if (snap.empty){
-    bar.textContent = "No reasons yet for this emotion.";
-    return;
-  }
-  snap.forEach(r=>{
-    const chip = document.createElement("button");
-    chip.className = "chip";
-    chip.textContent = prettify(r.id);
-    chip.addEventListener("click", ()=> selectReason(r.id));
-    bar.appendChild(chip);
-  });
-
-  // Reset verse card
-  document.getElementById("verseText").textContent = "";
-  document.getElementById("reference").textContent = "";
-  document.getElementById("verseCard").classList.remove("show");
-}
-
-async function selectReason(reasonId){
-  currentReason = reasonId;
-  setContextTitle();
-  const ref = doc(db, `emotions/${currentEmotion}/reasons/${reasonId}`);
-  const data = (await getDoc(ref)).data() || {};
-  let verses = data.verses || [];
-  if (!Array.isArray(verses)) {
-    // Support newline string
-    verses = String(verses).split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
-  }
-  currentVerses = verses;
-  index = Math.min(index, Math.max(0, verses.length-1));
-  renderVerse();
-}
-
-/* Next / Prev / Save / Share */
-document.getElementById("nextVerseBtn").addEventListener("click", ()=>{
-  if (!currentVerses.length) return;
-  index = (index + 1) % currentVerses.length;
-  renderVerse();
-});
-document.getElementById("prevVerseBtn").addEventListener("click", ()=>{
-  if (!currentVerses.length) return;
-  index = (index - 1 + currentVerses.length) % currentVerses.length;
-  renderVerse();
-});
-document.getElementById("saveFavBtn").addEventListener("click", ()=>{
-  if (!currentVerses.length) return;
-  const favs = JSON.parse(localStorage.getItem("favorites")||"[]");
-  const line = currentVerses[index];
-  if (!favs.includes(line)) favs.push(line);
-  localStorage.setItem("favorites", JSON.stringify(favs));
-  // little feedback
-  const btn = document.getElementById("saveFavBtn"); const prior = btn.textContent;
-  btn.textContent = "Saved ❤"; setTimeout(()=>btn.textContent=prior, 800);
-});
-document.getElementById("shareBtn").addEventListener("click", ()=>{
-  if (!currentVerses.length) return;
-  navigator.clipboard.writeText(currentVerses[index]);
-  const btn = document.getElementById("shareBtn"); const prior = btn.textContent;
-  btn.textContent = "Copied!"; setTimeout(()=>btn.textContent=prior, 800);
-});
-</script>
+<script type="module" src="app.js"></script>
 </body>
 </html>
