@@ -4,9 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FaithMoods</title>
-<link rel="icon" href="data:," />
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"/>
 
 <style>
 body {
@@ -15,114 +14,231 @@ body {
   background:linear-gradient(120deg,#6C63FF,#8E2DE2,#4A00E0);
   background-size:400% 400%;
   animation:bgShift 12s ease infinite;
+  color:#fff;
+  overflow-x:hidden;
+}
+
+@keyframes bgShift {
+  0%{background-position:0 50%} 
+  50%{background-position:100% 50%} 
+  100%{background-position:0 50%}
+}
+
+header {
+  text-align:center;
+  padding:1.2rem 0;
+  font-size:1.7rem;
+  font-weight:600;
+}
+
+.container {
+  width:90%;
+  max-width:900px;
+  margin:auto;
+}
+
+.card {
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(10px);
+  border-radius:1rem;
+  padding:1.2rem;
+  margin-bottom:1rem;
+}
+
+button {
+  border:none;
+  background:#6C63FF;
+  padding:0.5rem 0.9rem;
+  border-radius:0.5rem;
+  margin:0.2rem;
+  color:#fff;
+  cursor:pointer;
+}
+
+#bottomNav {
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:rgba(0,0,0,0.25);
+  display:flex;
+  justify-content:space-around;
+  backdrop-filter:blur(8px);
+  padding:0.6rem 0;
+}
+
+.nav-item {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  font-size:0.75rem;
   color:white;
 }
-@keyframes bgShift {0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
-
-.container {padding:20px;max-width:900px;margin:auto;}
-.panel {background:rgba(255,255,255,0.15);padding:20px;border-radius:12px;margin-bottom:20px;backdrop-filter:blur(8px);}
-button {border:none;padding:8px 14px;border-radius:6px;cursor:pointer;background:#6C63FF;color:white;}
-button:hover {opacity:.8;}
-
-ul {padding:0;list-style:none;}
-ul li {background:rgba(255,255,255,.18);padding:10px;margin:6px 0;border-radius:6px;cursor:pointer;}
-ul li:hover {background:rgba(255,255,255,.35);}
-
-textarea {width:100%;min-height:120px;border-radius:10px;border:none;padding:12px;font-family:'Poppins',sans-serif;}
-
-#nav {
-  position:fixed;bottom:0;left:0;right:0;
-  background:rgba(0,0,0,0.35);
-  backdrop-filter:blur(8px);
-  display:flex;justify-content:space-around;
-  padding:10px 0;color:white;font-size:.9rem;
+.nav-item span {
+  font-size:1.3rem;
 }
-.nav-item{text-align:center;cursor:pointer;}
-.nav-item.active{font-weight:600;color:#FFD86B;}
 
-.hidden{display:none;}
-
-#intro {
-  position:fixed;top:0;left:0;right:0;bottom:0;
-  background:linear-gradient(120deg,#6C63FF,#8E2DE2,#4A00E0);
-  display:flex;flex-direction:column;justify-content:center;align-items:center;
-  color:white;z-index:10;
+/* hidden screens */
+.screen {
+  display:none;
 }
-.fadeOut {animation:fadeOut .8s forwards;}
-@keyframes fadeOut {to{opacity:0;visibility:hidden;}}
+.active {
+  display:block;
+}
 </style>
 </head>
 
 <body>
 
-<div id="intro">
-  <h1>FaithMoods</h1>
-  <p>Find clarity in Scripture</p>
-  <button id="startBtn">Start</button>
-</div>
+<header>FaithMoods</header>
 
-<div class="container" id="homeTab">
-  <h2>Emotions</h2>
-  <ul id="emotions">
-    <li>anxious</li>
-    <li>happy</li>
-    <li>sad</li>
-    <li>scared</li>
-  </ul>
+<div class="container">
+  
+  <!-- Home Screen -->
+  <div id="homeScreen" class="screen active">
+    <div class="card">
+      <h2>Emotions</h2>
+      <ul id="emotions"></ul>
+    </div>
 
-  <div class="panel">
-    <div id="verse">C</div>
-    <button id="prevVerse">Prev</button>
-    <button id="nextVerse">Next</button>
-    <button id="saveFav">❤️ Save</button>
-    <button id="shareVerse">📤 Share</button>
+    <div class="card">
+      <div id="verseBox" style="min-height:100px;"></div>
+      <button id="prevVerse">Prev</button>
+      <button id="nextVerse">Next</button>
+      <button id="saveVerse">❤️ Save</button>
+      <button id="shareVerse">📤 Share</button>
+      <textarea id="journal" placeholder="Write your reflection..." style="width:100%; margin-top:10px; height:100px;"></textarea>
+    </div>
   </div>
 
-  <textarea id="journal" placeholder="Write your reflection..."></textarea>
+  <!-- Favorites Screen -->
+  <div id="favoritesScreen" class="screen">
+    <div class="card">
+      <h2>Favorites</h2>
+      <ul id="favoriteList"></ul>
+    </div>
+  </div>
+
+  <!-- Profile Screen -->
+  <div id="profileScreen" class="screen">
+    <div class="card">
+      <h2>Profile</h2>
+      <button id="googleLogin">Sign In With Google</button>
+      <button id="signOutBtn">Sign Out</button>
+      <button id="toggleTheme">Toggle Dark / Light</button>
+    </div>
+  </div>
+
 </div>
 
-<div class="container hidden" id="favoritesTab">
-  <h2>Favorites</h2>
-  <div id="favList">(empty)</div>
+<!-- Bottom Nav -->
+<div id="bottomNav">
+  <div class="nav-item" onclick="showScreen('homeScreen')"><span>🏠</span>Home</div>
+  <div class="nav-item" onclick="showScreen('favoritesScreen')"><span>⭐</span>Favorites</div>
+  <div class="nav-item" onclick="showScreen('profileScreen')"><span>👤</span>Profile</div>
 </div>
 
-<div class="container hidden" id="modeTab">
-  <h2>Theme</h2>
-  <button id="toggleTheme">Toggle Dark / Light</button>
-</div>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+import { getFirestore, collection, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
+import { 
+  getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged 
+} from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
 
-<div class="container hidden" id="musicTab">
-  <h2>Ambient Music</h2>
-  <button id="musicToggle">Play / Pause</button>
-</div>
+const firebaseConfig = {
+  apiKey: "AIzaSyCqwVQx8NbHucvpYmftMG3uSsTFQ5WBWM0",
+  authDomain: "soultabs-c814d.firebaseapp.com",
+  projectId: "soultabs-c814d",
+  storageBucket: "soultabs-c814d.firebasestorage.app",
+  messagingSenderId: "51287038225",
+  appId: "1:51287038225:web:f8afac352a833f362214b0",
+  measurementId: "G-B24FPHB1GC"
+};
 
-<div id="nav">
-  <div class="nav-item active" data-tab="homeTab">🏠<br>Home</div>
-  <div class="nav-item" data-tab="favoritesTab">⭐<br>Favorites</div>
-  <div class="nav-item" data-tab="modeTab">🌙<br>Mode</div>
-  <div class="nav-item" data-tab="musicTab">🎵<br>Music</div>
-</div>
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth();
 
-<script>
-// INTRO
-document.getElementById("startBtn").onclick = () =>
-  document.getElementById("intro").classList.add("fadeOut");
+function showScreen(screen) {
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+  document.getElementById(screen).classList.add("active");
+}
 
-// NAV
-document.querySelectorAll(".nav-item").forEach(btn=>{
-  btn.onclick = () => {
-    document.querySelectorAll(".container").forEach(c=>c.classList.add("hidden"));
-    document.querySelectorAll(".nav-item").forEach(n=>n.classList.remove("active"));
-    document.getElementById(btn.dataset.tab).classList.remove("hidden");
-    btn.classList.add("active");
-  };
-});
+// Load Emotions
+async function loadEmotions() {
+  const snapshot = await getDocs(collection(db, "emotions"));
+  const list = document.getElementById("emotions");
+  list.innerHTML = "";
+  snapshot.forEach(d => {
+    let li = document.createElement("li");
+    li.style.cursor="pointer";
+    li.textContent = d.id;
+    li.onclick = () => loadVerse(d.id);
+    list.appendChild(li);
+  });
+}
+loadEmotions();
 
-// DARK MODE
-document.getElementById("toggleTheme").onclick=()=>document.body.classList.toggle("dark");
+// Load Verse
+let verses = [];
+let index = 0;
 
-// MUSIC (UI only right now, we'll wire audio later)
-document.getElementById("musicToggle").onclick=()=>console.log("music button hit");
+async function loadVerse(emotion) {
+  const snap = await getDocs(collection(db, `emotions/${emotion}/reasons`));
+  let docId = snap.docs[0].id;
+  const docRef = await getDoc(doc(db, `emotions/${emotion}/reasons/${docId}`));
+  verses = docRef.data().verses.split("\n");
+  index = 0;
+  displayVerse();
+}
+
+function displayVerse() {
+  document.getElementById("verseBox").textContent = verses[index];
+}
+
+document.getElementById("nextVerse").onclick = () => { if(verses.length){ index=(index+1)%verses.length; displayVerse(); }};
+document.getElementById("prevVerse").onclick = () => { if(verses.length){ index=(index-1+verses.length)%verses.length; displayVerse(); }};
+
+// Favorites
+document.getElementById("saveVerse").onclick = () => {
+  let favs = JSON.parse(localStorage.getItem("favs")||"[]");
+  favs.push(verses[index]);
+  localStorage.setItem("favs", JSON.stringify(favs));
+  renderFavorites();
+};
+
+function renderFavorites() {
+  let favs = JSON.parse(localStorage.getItem("favs")||"[]");
+  let list = document.getElementById("favoriteList");
+  list.innerHTML = "";
+  favs.forEach(f => {
+    let li = document.createElement("li");
+    li.textContent = f;
+    list.appendChild(li);
+  });
+}
+renderFavorites();
+
+// Share
+document.getElementById("shareVerse").onclick = () => {
+  navigator.clipboard.writeText(verses[index]);
+  alert("Verse copied!");
+};
+
+// Journal
+document.getElementById("journal").oninput = e => localStorage.setItem("journal", e.target.value);
+document.getElementById("journal").value = localStorage.getItem("journal")||"";
+
+// Google Auth
+const provider = new GoogleAuthProvider();
+document.getElementById("googleLogin").onclick = () => signInWithPopup(auth,provider);
+document.getElementById("signOutBtn").onclick = () => signOut(auth);
+onAuthStateChanged(auth,(user)=>{});
+
+// Theme
+document.getElementById("toggleTheme").onclick = () => {
+  document.body.style.filter = document.body.style.filter ? "" : "invert(1)";
+};
 </script>
 
 </body>
