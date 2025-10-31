@@ -2,80 +2,122 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>FaithMoods 2.0</title>
+
+<!-- Inline favicon (prevents 404) -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E🙏%3C/text%3E%3C/svg%3E">
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
 
 <style>
 :root {
-  --purple:#6C63FF; --glass-bg:rgba(255,255,255,0.2);
-  --shadow:0 4px 30px rgba(0,0,0,0.1);
-  --blur:blur(12px);
+  --purple:#6C63FF; --purple2:#8E2DE2; --purple3:#4A00E0;
+  --glass:rgba(255,255,255,.16);
+  --shadow:0 10px 30px rgba(0,0,0,.15);
 }
-body {
-  margin:0;font-family:Poppins,sans-serif;
-  background:linear-gradient(120deg,#6C63FF,#8E2DE2,#4A00E0);
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  color:#fff; background:linear-gradient(120deg,var(--purple),var(--purple2),var(--purple3));
   background-size:400% 400%; animation:bg 14s ease infinite;
-  color:white; display:flex; flex-direction:column; align-items:center;
+  display:flex; flex-direction:column; align-items:center;
 }
-@keyframes bg {0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
-#intro {
-  position:fixed; inset:0; display:flex; flex-direction:column;
-  justify-content:center; align-items:center; font-size:2rem;
-  z-index:1000; background:inherit; animation:bg 14s ease infinite;
-}
-.fadeOut {animation:fade 1.6s forwards;}
-@keyframes fade {to{opacity:0;visibility:hidden;}}
+@keyframes bg{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
 
-button {
-  background:var(--purple); padding:.6rem 1rem; border:none;
-  border-radius:8px; cursor:pointer; color:white;
-  font-size:1rem; margin-top:.7rem;
+button{
+  appearance:none; border:none; border-radius:12px; padding:.7rem 1rem; cursor:pointer;
+  background:var(--glass); color:#fff; backdrop-filter:blur(10px);
+  box-shadow:var(--shadow); transition:.18s ease transform, .18s ease opacity, .18s ease background;
 }
-button:hover {opacity:.85}
+button:hover{background:rgba(255,255,255,.24)}
+button:active{transform:scale(.98); opacity:.9}
+.btn-primary{background:#6C63FF}
+.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,.35)}
+.small{padding:.45rem .7rem;border-radius:10px;font-size:.9rem}
 
-header {text-align:center; margin-top:4rem;}
-.container {
-  width:90%; max-width:1100px; margin-top:2rem;
-  display:flex; gap:1.5rem; flex-wrap:wrap; justify-content:center;
-}
-.panel {
-  flex:1; min-width:280px; padding:1.5rem; border-radius:1rem;
-  background:rgba(255,255,255,.15); backdrop-filter:blur(14px);
+header{margin-top:3.5rem;text-align:center}
+header h1{margin:0;font-size:2.2rem;font-weight:700;letter-spacing:.3px}
+header small{opacity:.9}
+
+.container{width:clamp(280px,92%,1150px); display:flex; gap:1.2rem; flex-wrap:wrap; margin:1.6rem auto 3rem}
+.panel{
+  flex:1 1 320px; background:var(--glass); padding:1.2rem 1.2rem; border-radius:18px;
+  backdrop-filter:blur(12px); box-shadow:var(--shadow); min-height:140px;
 }
 
-#emotions li {
-  background:rgba(255,255,255,.2);
-  margin:.35rem 0; padding:.5rem; border-radius:.5rem;
-  cursor:pointer;
+#intro{
+  position:fixed; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; background:inherit; animation:bg 14s ease infinite; z-index:9999;
 }
-#emotions li:hover {background:rgba(255,255,255,.35)}
+#intro.fade{animation:fadeOut .8s ease forwards}
+@keyframes fadeOut{to{opacity:0;filter:blur(6px);visibility:hidden}}
 
-#verseCard {
-  min-height:80px; padding:1rem; margin-top:1rem;
-  background:rgba(255,255,255,.15); border-left:4px solid var(--purple);
-  font-style:italic; border-radius:8px; opacity:0; transition:.4s;
+ul{list-style:none; padding:0; margin:0}
+#emotions li{
+  background:rgba(255,255,255,.20); margin:.35rem 0; padding:.7rem .9rem; border-radius:10px; cursor:pointer;
 }
-#verseCard.visible {opacity:1;}
+#emotions li:hover{background:rgba(255,255,255,.30)}
 
-textarea {
-  width:100%; height:120px; margin-top:1rem;
-  border:none; border-radius:8px; padding:8px;
+#reasonBar{display:flex; gap:.5rem; flex-wrap:wrap; margin-top:.6rem}
+#reasonBar .chip{
+  background:rgba(255,255,255,.20); border-radius:999px; padding:.4rem .8rem; font-size:.92rem;
 }
-#musicToggle,#darkToggle {
-  position:fixed; top:1rem; width:40px; height:40px;
-  border:none; border-radius:50%; font-size:1.2rem;
+#reasonBar .chip:hover{background:rgba(255,255,255,.32)}
+
+#verseCard{
+  margin-top:1rem; padding:1rem; border-left:4px solid #6C63FF; border-radius:12px;
+  background:rgba(255,255,255,.12); min-height:88px; opacity:0; transform:translateY(4px);
+  transition:.25s ease opacity,.25s ease transform;
 }
-#musicToggle {right:1rem; background:rgba(108,99,255,.6)}
-#darkToggle {right:4.2rem; background:rgba(255,255,255,.4)}
+#verseCard.show{opacity:1; transform:none}
+#reference{opacity:.9; font-size:.95rem; margin-top:.25rem}
+
+.row{display:flex; gap:.5rem; flex-wrap:wrap; align-items:center; margin-top:.6rem}
+
+#musicToggle,#darkToggle,#favoritesBtn{
+  position:fixed; top:1rem; width:42px; height:42px; border-radius:50%;
+  display:grid; place-content:center; font-size:1.1rem;
+}
+#musicToggle{right:1rem}
+#darkToggle{right:4.2rem}
+#favoritesBtn{right:7.4rem}
+
+.dark{color:#f1f1f1}
+.dark body{background:#111}
+.dark .panel, .dark button{background:rgba(255,255,255,.08)}
+.dark #emotions li{background:rgba(255,255,255,.12)}
+.dark #verseCard{background:rgba(255,255,255,.10)}
+
+.modal{
+  position:fixed; inset:0; display:none; place-items:center; z-index:10000;
+  background:rgba(0,0,0,.42);
+}
+.modal.open{display:grid}
+.modal .sheet{
+  width:min(720px,92%); background:#1f1f28; color:#fff; border-radius:16px; padding:1rem 1rem 1.2rem;
+  box-shadow:var(--shadow);
+}
+.modal h3{margin:0 0 .4rem}
+.favorite{
+  background:#2a2a36; border-radius:12px; padding:.8rem; margin:.4rem 0; display:flex; gap:.6rem; align-items:center; justify-content:space-between;
+  word-break:break-word;
+}
+.favorite .meta{opacity:.85; font-size:.9rem}
+.actions{display:flex; gap:.4rem; flex-wrap:wrap}
+
+footer{opacity:.75; font-size:.85rem; margin-bottom:1rem}
 </style>
 </head>
 <body>
 
+<!-- Intro / splash -->
 <div id="intro">
-  <h1>FaithMoods</h1>
+  <h1 style="margin:0 0 .2rem">FaithMoods</h1>
   <small>Find clarity in Scripture</small>
-  <button id="startBtn">Start</button>
+  <div style="height:.9rem"></div>
+  <button id="startBtn" class="btn-primary">Start</button>
 </div>
 
 <header>
@@ -84,37 +126,66 @@ textarea {
 </header>
 
 <div class="container">
+  <!-- Left: emotions -->
   <div class="panel">
-    <h2>Emotions</h2>
+    <h2 style="margin:.2rem 0 .6rem">Emotions</h2>
     <ul id="emotions"></ul>
   </div>
-  <div class="panel">
-    <div id="reasons"></div>
-    <div id="verseCard"></div>
 
-    <div style="margin-top:1rem">
-      <button id="prevVerseBtn">Prev</button>
-      <button id="nextVerseBtn">Next</button>
-      <button id="favBtn">❤ Save</button>
-      <button id="shareBtn">📤 Share</button>
+  <!-- Right: reasons + verse + journal -->
+  <div class="panel">
+    <div id="contextTitle" style="font-weight:600"></div>
+    <div id="reasonBar" class="row"></div>
+
+    <div id="verseCard">
+      <div id="verseText"></div>
+      <div id="reference"></div>
     </div>
 
-    <textarea id="journal" placeholder="Your thoughts here..."></textarea>
+    <div class="row">
+      <button id="prevVerseBtn" class="small btn-ghost">Prev</button>
+      <button id="nextVerseBtn" class="small btn-ghost">Next</button>
+      <button id="saveFavBtn" class="small btn-primary">❤ Save</button>
+      <button id="shareBtn" class="small btn-ghost">📤 Share</button>
+    </div>
+
+    <textarea id="journal" placeholder="Your reflection… (auto-saves locally)"></textarea>
+    <div class="row">
+      <button id="exportJournalBtn" class="small btn-ghost">Export Journal (.txt)</button>
+      <button id="clearJournalBtn" class="small btn-ghost">Clear Journal</button>
+    </div>
   </div>
 </div>
 
-<button id="musicToggle">🔊</button>
-<button id="darkToggle">🌙</button>
+<!-- Floating controls -->
+<button id="favoritesBtn" title="Favorites">⭐</button>
+<button id="darkToggle" title="Dark mode">🌙</button>
+<button id="musicToggle" title="Music">🔊</button>
+<audio id="bgMusic" preload="none" loop
+  src="https://files-for-cdn.netlify.app/audio/lofi-soft-pads.mp3"></audio>
 
-<audio id="bgMusic" loop src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9abfc8e8c5.mp3?filename=ambient-piano-and-pad-112199.mp3"></audio>
+<!-- Favorites modal -->
+<div id="favModal" class="modal" aria-hidden="true">
+  <div class="sheet">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <h3>Saved Favorites</h3>
+      <div class="actions">
+        <button id="clearFavsBtn" class="small btn-ghost">Clear all</button>
+        <button id="closeFavsBtn" class="small btn-primary">Close</button>
+      </div>
+    </div>
+    <div id="favList"></div>
+  </div>
+</div>
+
+<footer>© FaithMoods</footer>
 
 <script type="module">
-/* FIREBASE */
-import { initializeApp } 
-from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-
-import { getFirestore, collection, doc, getDoc, getDocs }
-from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
+/* =========================
+   Firebase (Firestore)
+========================= */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+import { getFirestore, collection, doc, getDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCqwVQx8NbHucvpYmftMG3uSsTFQ5WBWM0",
@@ -125,112 +196,268 @@ const firebaseConfig = {
   appId: "1:51287038225:web:f8afac352a833f362214b0",
   measurementId: "G-B24FPHB1GC"
 };
-
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+const db  = getFirestore(app);
 
-/* INTRO */
+/* =========================
+   DOM ready boot
+========================= */
 document.addEventListener("DOMContentLoaded", () => {
   const startBtn = document.getElementById("startBtn");
-
-  if (startBtn) {
-    startBtn.addEventListener("click", () => {
-      const intro = document.getElementById("intro");
-      if (intro) intro.style.display = "none"; // hide intro
-      startMusic();
-      loadEmotions();
-    });
-  } else {
-    console.error("Start button not found in DOM.");
-  }
+  startBtn?.addEventListener("click", onStart);
 });
 
-/* MUSIC */
+/* =========================
+   State
+========================= */
+let currentEmotion = null;
+let currentReason  = null;
+let currentVerses  = [];
+let index          = 0;
+
+/* =========================
+   UI Helpers
+========================= */
+function show(el){el.classList.add("show")}
+function hideIntro(){
+  const intro = document.getElementById("intro");
+  intro.classList.add("fade");
+  setTimeout(()=>{ intro.style.display="none"; }, 650);
+}
+function setContextTitle(){
+  const title = document.getElementById("contextTitle");
+  title.textContent = currentEmotion
+    ? `${currentEmotion.toUpperCase()}${currentReason ? " · " + prettify(currentReason) : ""}`
+    : "";
+}
+function prettify(s){ return String(s||"").replace(/_/g," ").replace(/\b\w/g, m => m.toUpperCase()); }
+
+function parseLineToParts(line){
+  // Support "Text — Reference" OR "Text (Ref)" OR plain Text
+  const emDash = line.split(" — ");
+  if (emDash.length >= 2){
+    return { text: emDash[0].trim(), ref: emDash.slice(1).join(" — ").trim() };
+  }
+  const m = line.match(/^(.*)\(([^)]+)\)\s*$/);
+  if (m) return { text: m[1].trim(), ref: m[2].trim() };
+  return { text: line.trim(), ref: "" };
+}
+
+function renderVerse(){
+  const card = document.getElementById("verseCard");
+  const vText = document.getElementById("verseText");
+  const ref   = document.getElementById("reference");
+  if (!currentVerses.length){
+    vText.textContent = "No verse found for this reason yet.";
+    ref.textContent = "";
+    show(card);
+    return;
+  }
+  const parts = parseLineToParts(currentVerses[index]);
+  vText.textContent = parts.text;
+  ref.textContent   = parts.ref ? parts.ref : "";
+  show(card);
+}
+
+/* =========================
+   Start flow
+========================= */
+async function onStart(){
+  hideIntro();
+  try { await startMusic(); } catch {}
+  await loadEmotions();
+}
+
+/* =========================
+   Music + Dark
+========================= */
 const music = document.getElementById("bgMusic");
-document.getElementById("musicToggle").onclick = () => {
-  if(music.paused){music.play();} else {music.pause();}
-};
+document.getElementById("musicToggle").addEventListener("click", async ()=>{
+  try{
+    if (music.paused){ await music.play(); }
+    else { music.pause(); }
+  }catch{}
+});
+async function startMusic(){
+  music.volume = .18;
+  try{ await music.play(); }catch{ /* user-gesture will enable */ }
+}
 
-/* DARK MODE */
-document.getElementById("darkToggle").onclick = () => {
-  document.body.classList.toggle("dark");
-};
+document.getElementById("darkToggle").addEventListener("click", ()=>{
+  document.documentElement.classList.toggle("dark");
+});
 
-/* FIRESTORE */
-let verses = [], index = 0;
+/* =========================
+   Favorites Modal
+========================= */
+const favModal   = document.getElementById("favModal");
+const favList    = document.getElementById("favList");
+const favBtn     = document.getElementById("favoritesBtn");
+const closeFavs  = document.getElementById("closeFavsBtn");
+const clearFavs  = document.getElementById("clearFavsBtn");
 
+favBtn.addEventListener("click", openFavs);
+closeFavs.addEventListener("click", closeFavsModal);
+clearFavs.addEventListener("click", ()=>{
+  localStorage.removeItem("favorites");
+  renderFavorites();
+});
+
+function openFavs(){ favModal.classList.add("open"); renderFavorites(); }
+function closeFavsModal(){ favModal.classList.remove("open"); }
+
+function renderFavorites(){
+  const favs = JSON.parse(localStorage.getItem("favorites")||"[]");
+  favList.innerHTML = "";
+  if (!favs.length){
+    favList.innerHTML = "<div class='favorite'><div>No favorites yet.</div></div>";
+    return;
+  }
+  favs.forEach((line, i)=>{
+    const parts = parseLineToParts(line);
+    const wrap = document.createElement("div");
+    wrap.className = "favorite";
+    wrap.innerHTML = `
+      <div>
+        <div>${parts.text}</div>
+        <div class="meta">${parts.ref || ""}</div>
+      </div>
+      <div class="actions">
+        <button class="small btn-ghost" data-copy="${encodeURIComponent(line)}">Copy</button>
+        <button class="small btn-ghost" data-remove="${i}">Remove</button>
+      </div>
+    `;
+    favList.appendChild(wrap);
+  });
+  favList.querySelectorAll("[data-copy]").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      const raw = decodeURIComponent(btn.getAttribute("data-copy"));
+      navigator.clipboard.writeText(raw);
+      btn.textContent = "Copied!";
+      setTimeout(()=>btn.textContent="Copy",900);
+    });
+  });
+  favList.querySelectorAll("[data-remove]").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      const idx = +btn.getAttribute("data-remove");
+      const favs = JSON.parse(localStorage.getItem("favorites")||"[]");
+      favs.splice(idx,1);
+      localStorage.setItem("favorites", JSON.stringify(favs));
+      renderFavorites();
+    });
+  });
+}
+
+/* =========================
+   Journal
+========================= */
+const journal = document.getElementById("journal");
+journal.value = localStorage.getItem("journal") || "";
+journal.addEventListener("input", ()=> localStorage.setItem("journal", journal.value));
+document.getElementById("exportJournalBtn").addEventListener("click", ()=>{
+  const blob = new Blob([journal.value], {type:"text/plain"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "faithmoods-journal.txt";
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+document.getElementById("clearJournalBtn").addEventListener("click", ()=>{
+  if (confirm("Clear journal?")) { journal.value=""; localStorage.removeItem("journal"); }
+});
+
+/* =========================
+   Firestore: Emotions -> Reasons -> Verses
+========================= */
 async function loadEmotions(){
-  const snap = await getDocs(collection(db,"emotions"));
   const list = document.getElementById("emotions");
+  list.innerHTML = `<li>Loading…</li>`;
+  const snap = await getDocs(collection(db, "emotions"));
   list.innerHTML = "";
+  if (snap.empty){
+    list.innerHTML = `<li>No emotions yet. Add some in Firestore.</li>`;
+    return;
+  }
   snap.forEach(d=>{
     const li = document.createElement("li");
     li.textContent = d.id;
-    li.onclick = () => loadReasons(d.id);
+    li.addEventListener("click", ()=> selectEmotion(d.id));
     list.appendChild(li);
   });
 }
 
-async function loadReasons(em){
-  const snap = await getDocs(collection(db,`emotions/${em}/reasons`));
-  const div = document.getElementById("reasons");
-  div.innerHTML = `<h2>${em.toUpperCase()}</h2>`;
+async function selectEmotion(emotion){
+  currentEmotion = emotion;
+  currentReason  = null;
+  currentVerses  = [];
+  index = 0;
+  setContextTitle();
+
+  const bar = document.getElementById("reasonBar");
+  bar.innerHTML = "Loading…";
+
+  const snap = await getDocs(collection(db, `emotions/${emotion}/reasons`));
+  bar.innerHTML = "";
+  if (snap.empty){
+    bar.textContent = "No reasons yet for this emotion.";
+    return;
+  }
   snap.forEach(r=>{
-    const b = document.createElement("button");
-    b.textContent = r.id.replace(/_/g," ");
-    b.onclick = () => showVerse(em,r.id);
-    div.appendChild(b);
+    const chip = document.createElement("button");
+    chip.className = "chip";
+    chip.textContent = prettify(r.id);
+    chip.addEventListener("click", ()=> selectReason(r.id));
+    bar.appendChild(chip);
   });
+
+  // Reset verse card
+  document.getElementById("verseText").textContent = "";
+  document.getElementById("reference").textContent = "";
+  document.getElementById("verseCard").classList.remove("show");
 }
 
-async function showVerse(em,reason){
-  const ref = doc(db,`emotions/${em}/reasons/${reason}`);
-  const data = (await getDoc(ref)).data();
-  verses = Array.isArray(data.verses)
-    ? data.verses
-    : data.verses.split(/\n/).filter(v=>v.trim()!="");
-  index = Math.floor(Math.random()*verses.length);
-  displayVerse();
+async function selectReason(reasonId){
+  currentReason = reasonId;
+  setContextTitle();
+  const ref = doc(db, `emotions/${currentEmotion}/reasons/${reasonId}`);
+  const data = (await getDoc(ref)).data() || {};
+  let verses = data.verses || [];
+  if (!Array.isArray(verses)) {
+    // Support newline string
+    verses = String(verses).split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
+  }
+  currentVerses = verses;
+  index = Math.min(index, Math.max(0, verses.length-1));
+  renderVerse();
 }
 
-function displayVerse(){
-  const card = document.getElementById("verseCard");
-  card.textContent = verses[index];
-  card.classList.add("visible");
-}
-
-document.getElementById("nextVerseBtn").onclick = ()=>{
-  if(!verses.length) return;
-  index = (index+1)%verses.length; displayVerse();
-};
-
-document.getElementById("prevVerseBtn").onclick = ()=>{
-  if(!verses.length) return;
-  index = (index-1+verses.length)%verses.length; displayVerse();
-};
-
-/* SAVE / SHARE / JOURNAL */
-document.getElementById("favBtn").onclick = ()=>{
-  if(!verses.length) return;
-  const s = JSON.parse(localStorage.getItem("favorites")||"[]");
-  s.push(verses[index]);
-  localStorage.setItem("favorites",JSON.stringify(s));
-  alert("Saved ❤️");
-};
-
-document.getElementById("shareBtn").onclick = ()=>{
-  navigator.clipboard.writeText(verses[index]);
-  alert("Copied to clipboard 📋");
-};
-
-const journal = document.getElementById("journal");
-journal.value = localStorage.getItem("journal")||"";
-journal.oninput = ()=>localStorage.setItem("journal",journal.value);
-
-/* AUTO MUSIC */
-function startMusic(){music.volume=.18; music.play().catch(()=>{});}
-  document.getElementById('intro').style.display = "none";
-loadEmotions();
+/* Next / Prev / Save / Share */
+document.getElementById("nextVerseBtn").addEventListener("click", ()=>{
+  if (!currentVerses.length) return;
+  index = (index + 1) % currentVerses.length;
+  renderVerse();
+});
+document.getElementById("prevVerseBtn").addEventListener("click", ()=>{
+  if (!currentVerses.length) return;
+  index = (index - 1 + currentVerses.length) % currentVerses.length;
+  renderVerse();
+});
+document.getElementById("saveFavBtn").addEventListener("click", ()=>{
+  if (!currentVerses.length) return;
+  const favs = JSON.parse(localStorage.getItem("favorites")||"[]");
+  const line = currentVerses[index];
+  if (!favs.includes(line)) favs.push(line);
+  localStorage.setItem("favorites", JSON.stringify(favs));
+  // little feedback
+  const btn = document.getElementById("saveFavBtn"); const prior = btn.textContent;
+  btn.textContent = "Saved ❤"; setTimeout(()=>btn.textContent=prior, 800);
+});
+document.getElementById("shareBtn").addEventListener("click", ()=>{
+  if (!currentVerses.length) return;
+  navigator.clipboard.writeText(currentVerses[index]);
+  const btn = document.getElementById("shareBtn"); const prior = btn.textContent;
+  btn.textContent = "Copied!"; setTimeout(()=>btn.textContent=prior, 800);
+});
 </script>
 </body>
 </html>
