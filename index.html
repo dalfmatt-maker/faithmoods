@@ -5,107 +5,87 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>FaithMoods</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+
 <style>
 :root {
-  --purple: #6C63FF;
-  --glass: rgba(255,255,255,0.25);
+  --purple:#6C63FF;
+  --glass:rgba(255,255,255,0.25);
+  --bg-light:linear-gradient(120deg,#6C63FF,#8E2DE2,#4A00E0);
+  --bg-dark: #0d0d15;
 }
-* { box-sizing: border-box; }
+*{box-sizing:border-box;}
 body {
-  margin:0; font-family:'Poppins',sans-serif;
-  background:linear-gradient(120deg,#6C63FF,#8E2DE2,#4A00E0);
-  background-size:300% 300%;
-  animation:bgshift 10s infinite;
-  color:#fff; overflow-x:hidden;
+  margin:0;font-family:Poppins,sans-serif;
+  background:var(--bg-light); background-size:300% 300%;
+  animation:bgShift 10s infinite; color:#fff; overflow-x:hidden;
 }
-@keyframes bgshift {
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
-}
+@keyframes bgShift {0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
 
-/* Intro Screen */
+.hidden{display:none;}
+.fadeOut{animation:fadeOut 1.2s forwards;}
+@keyframes fadeOut{to{opacity:0;visibility:hidden}}
+
 #intro {
-  position:fixed; inset:0; display:flex; flex-direction:column;
-  align-items:center; justify-content:center;
-  background:inherit; text-align:center; z-index:999;
+  position:fixed; inset:0; display:flex;flex-direction:column;justify-content:center;align-items:center;
+  background:inherit; z-index:10; text-align:center;
 }
-.fadeOut { animation:fadeOut 1.2s forwards; }
-@keyframes fadeOut { to { opacity:0; visibility:hidden; } }
+button {
+  background:var(--purple); color:#fff; border:none; padding:.6rem 1rem;
+  border-radius:8px; cursor:pointer; font-size:1rem;
+}
+button:hover{opacity:.85;}
 
-/* UI Panels */
 .container {
-  margin-top:120px;
-  display:flex; flex-wrap:wrap; gap:2rem; justify-content:center;
-  width:90%; max-width:1200px; margin-inline:auto;
+  padding:1rem; margin-top:100px;
 }
 .panel {
-  background:var(--glass); padding:1.4rem; border-radius:1rem;
-  backdrop-filter:blur(12px); min-width:290px; flex:1;
+  background:var(--glass);backdrop-filter:blur(12px);
+  padding:1rem;border-radius:1rem;margin-bottom:80px;
 }
 
-/* Lists */
 #emotions li {
-  background:rgba(255,255,255,0.15); padding:0.6rem;
-  margin:0.4rem 0; border-radius:0.5rem; cursor:pointer;
+  background:rgba(255,255,255,0.2);
+  padding:.7rem; margin:.4rem 0;
+  border-radius:8px; cursor:pointer;
 }
-#emotions li:hover { background:rgba(255,255,255,0.35); }
+#emotions li:hover { background:rgba(255,255,255,0.4); }
 
-button {
-  background:var(--purple); border:none; padding:0.6rem 1rem;
-  border-radius:8px; color:white; cursor:pointer;
+#verseCard{
+  background:rgba(0,0,0,0.3);padding:1rem;border-radius:8px;
+  margin-top:1rem;min-height:60px;opacity:0;transition:.4s;
 }
-button:hover { opacity:.85; }
-
-#verseCard {
-  background:rgba(0,0,0,0.3);
-  padding:1rem; margin-top:1rem; border-radius:8px;
-  min-height:60px; opacity:0; transition:.4s;
-}
-#verseCard.visible { opacity:1; }
-
-/* Top floating buttons */
-#googleBtn, #darkToggle, #musicToggle {
-  position:fixed; top:1rem; width:2.6rem; height:2.6rem;
-  border-radius:50%; border:none; font-size:1.2rem;
-  display:flex; align-items:center; justify-content:center; cursor:pointer;
-  backdrop-filter:blur(12px);
-}
-#googleBtn { right:1rem; background:white; color:#444; font-size:18px; }
-#darkToggle { right:4.3rem; background:rgba(255,255,255,0.25); }
-#musicToggle { right:7.6rem; background:rgba(255,255,255,0.25); }
+#verseCard.visible{opacity:1;}
 
 textarea {
-  width:100%; margin-top:1rem; border-radius:10px; padding:0.7rem;
-  font-family:'Poppins'; border:none;
+  width:100%;border-radius:8px;border:none;padding:.6rem;margin-top:1rem;font-family:Poppins;
 }
 
-/* Dark mode */
-.dark body { background:#111; }
-.dark #googleBtn { background:#fff; color:#222; }
+/* Bottom Nav */
+#nav {
+  position:fixed;bottom:0;left:0;right:0;height:65px;
+  background:rgba(0,0,0,0.35);backdrop-filter:blur(15px);
+  display:flex;justify-content:space-around;align-items:center;
+}
+.nav-btn {
+  color:white;text-align:center;font-size:.8rem;cursor:pointer;
+}
+
+/* Dark Mode */
+.dark body {background:var(--bg-dark);}
+.dark #nav{background:rgba(255,255,255,0.1);}
 </style>
 </head>
-
 <body>
 
-<!-- INTRO -->
+<!-- Intro -->
 <div id="intro">
-  <h1 style="font-size:2.3rem;font-weight:700;">FaithMoods</h1>
+  <h1 style="font-size:2.4rem">FaithMoods</h1>
   <p>Find clarity in Scripture</p>
   <button id="startBtn">Start</button>
 </div>
 
-<!-- Floating buttons -->
-<button id="musicToggle">🔊</button>
-<button id="darkToggle">🌙</button>
-<button id="googleBtn">G</button>
-
-<header style="text-align:center;margin-top:80px;">
-  <h1>FaithMoods</h1>
-  <small>Find clarity in Scripture</small>
-</header>
-
-<div class="container">
+<!-- Tabs -->
+<div id="homeView" class="container">
   <div class="panel">
     <h2>Emotions</h2>
     <ul id="emotions"></ul>
@@ -114,133 +94,155 @@ textarea {
   <div class="panel">
     <div id="reasons"></div>
     <div id="verseCard"></div>
-    <div style="display:flex;gap:.4rem;margin-top:.6rem;">
+
+    <div style="display:flex;gap:.4rem;margin-top:.5rem;">
       <button id="prevVerseBtn">Prev</button>
       <button id="nextVerseBtn">Next</button>
       <button id="favBtn">❤</button>
       <button id="shareBtn">📤</button>
     </div>
-    <textarea id="journal" placeholder="Write your thoughts..."></textarea>
+
+    <textarea id="journal" placeholder="Write your reflection..."></textarea>
   </div>
+</div>
+
+<div id="favoritesView" class="container hidden">
+  <h2>Your Favorites</h2>
+  <div id="favList"></div>
+</div>
+
+<div id="journalView" class="container hidden">
+  <h2>Journal</h2>
+  <textarea id="journalPage" style="height:300px;"></textarea>
+</div>
+
+<div id="profileView" class="container hidden">
+  <h2>Profile</h2>
+  <button id="googleBtn" style="width:100%;margin-top:1rem;">Sign in with Google</button>
+  <button id="darkToggle" style="margin-top:1rem;width:100%;">Toggle Dark Mode 🌙</button>
+</div>
+
+<!-- Bottom Nav -->
+<div id="nav">
+  <div class="nav-btn" data-tab="homeView">🏠<br>Home</div>
+  <div class="nav-btn" data-tab="favoritesView">⭐<br>Favorites</div>
+  <div class="nav-btn" data-tab="journalView">📝<br>Journal</div>
+  <div class="nav-btn" data-tab="profileView">👤<br>Profile</div>
 </div>
 
 <audio id="bgMusic" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9abfc8e8c5.mp3?filename=ambient-piano-and-pad-112199.mp3"></audio>
 
 <script type="module">
-/* Firebase Imports */
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getFirestore, collection, doc, getDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-/* Firebase Init */
-const firebaseConfig = {
-  apiKey: "AIzaSyCqwVQx8NbHucvpYmftMG3uSsTFQ5WBWM0",
-  authDomain: "soultabs-c814d.firebaseapp.com",
-  projectId: "soultabs-c814d",
-  storageBucket: "soultabs-c814d.firebasestorage.app",
-  messagingSenderId: "51287038225",
-  appId: "1:51287038225:web:f8afac352a833f362214b0"
-};
-const app = initializeApp(firebaseConfig);
+const app = initializeApp({
+  apiKey:"AIzaSyCqwVQx8NbHucvpYmftMG3uSsTFQ5WBWM0",
+  authDomain:"soultabs-c814d.firebaseapp.com",
+  projectId:"soultabs-c814d"
+});
 const db = getFirestore(app);
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
 
-/* UI References */
-const intro = document.getElementById("intro");
-const startBtn = document.getElementById("startBtn");
-const googleBtn = document.getElementById("googleBtn");
-const music = document.getElementById("bgMusic");
-const musicToggle = document.getElementById("musicToggle");
-const darkToggle = document.getElementById("darkToggle");
-const emotionsList = document.getElementById("emotions");
-const verseCard = document.getElementById("verseCard");
-const journal = document.getElementById("journal");
+/* UI */
+const intro=document.getElementById("intro");
+const startBtn=document.getElementById("startBtn");
+const darkToggle=document.getElementById("darkToggle");
+const music=document.getElementById("bgMusic");
+const emotionsList=document.getElementById("emotions");
+const verseCard=document.getElementById("verseCard");
+const journal=document.getElementById("journal");
+const journalPage=document.getElementById("journalPage");
 
-let currentVerses = [], index = 0;
+let currentVerses=[],idx=0;
 
-/* Start Button */
-startBtn.onclick = () => {
-  intro.classList.add("fadeOut");
-  playMusic();
-  loadEmotions();
+/* Start */
+startBtn.onclick=()=>{
+ intro.classList.add("fadeOut");
+ music.play().catch(()=>{}); // Plays only after user click
+ loadEmotions();
 };
 
-/* Music */
-function playMusic(){ music.volume=0.18; music.play().catch(()=>{}); }
-musicToggle.onclick = () => music.paused ? playMusic() : music.pause();
+/* Tabs */
+document.querySelectorAll(".nav-btn").forEach(btn=>{
+ btn.onclick=()=>{
+   document.querySelectorAll(".container").forEach(v=>v.classList.add("hidden"));
+   document.getElementById(btn.dataset.tab).classList.remove("hidden");
+   if(btn.dataset.tab==="favoritesView") loadFavorites();
+ };
+});
 
 /* Dark Mode */
-let dark = localStorage.getItem("dark") === "true";
-if(dark) document.body.classList.add("dark");
-darkToggle.textContent = dark ? "☀️" : "🌙";
-darkToggle.onclick = () => {
-  dark = !dark;
+if(localStorage.getItem("dark")==="true") document.body.classList.add("dark");
+darkToggle.onclick=()=>{
   document.body.classList.toggle("dark");
-  darkToggle.textContent = dark ? "☀️" : "🌙";
-  localStorage.setItem("dark", dark);
+  localStorage.setItem("dark",document.body.classList.contains("dark"));
 };
 
-/* Google Sign-In */
-googleBtn.onclick = async () => {
-  try { await signInWithPopup(auth, provider); alert("Signed in! ✅"); }
-  catch { alert("Sign-in blocked. Add domain in Firebase."); }
+/* Google Login */
+document.getElementById("googleBtn").onclick=async()=>{
+  try { await signInWithPopup(auth,provider); alert("Signed in ✅"); }
+  catch { alert("Add domain to Firebase Auth"); }
 };
 
 /* Firestore */
 async function loadEmotions(){
-  const snap = await getDocs(collection(db,"emotions"));
-  emotionsList.innerHTML="";
-  snap.forEach(d=>{
-    const li=document.createElement("li"); li.textContent=d.id;
-    li.onclick=()=>loadReasons(d.id);
-    emotionsList.appendChild(li);
-  });
+ const snap=await getDocs(collection(db,"emotions"));
+ emotionsList.innerHTML="";
+ snap.forEach(d=>{
+  let li=document.createElement("li");
+  li.textContent=d.id; li.onclick=()=>loadReasons(d.id);
+  emotionsList.appendChild(li);
+ });
 }
-async function loadReasons(emotion){
-  const snap = await getDocs(collection(db,`emotions/${emotion}/reasons`));
-  const div=document.getElementById("reasons");
-  div.innerHTML=`<h3>${emotion.toUpperCase()}</h3>`;
-  snap.forEach(r=>{
-    const b=document.createElement("button");
-    b.textContent=r.id.replace(/_/g," ");
-    b.onclick=()=>loadVerse(emotion,r.id);
-    div.appendChild(b);
-  });
-  verseCard.textContent="";
+async function loadReasons(e){
+ const snap=await getDocs(collection(db,`emotions/${e}/reasons`));
+ let div=document.getElementById("reasons");
+ div.innerHTML=`<h3>${e.toUpperCase()}</h3>`;
+ snap.forEach(r=>{
+  let b=document.createElement("button");
+  b.textContent=r.id.replace(/_/g," ");
+  b.onclick=()=>loadVerse(e,r.id);
+  div.appendChild(b);
+ });
+ verseCard.textContent="";
 }
-
-async function loadVerse(emotion,reason){
-  const docSnap=await getDoc(doc(db,`emotions/${emotion}/reasons/${reason}`));
-  let v=docSnap.data().verses;
-  currentVerses = Array.isArray(v) ? v : v.split("\n");
-  index = Math.floor(Math.random()*currentVerses.length);
-  showVerse();
+async function loadVerse(e,r){
+ const s=await getDoc(doc(db,`emotions/${e}/reasons/${r}`));
+ let v=s.data().verses;
+ currentVerses=Array.isArray(v)?v:v.split("\n");
+ idx=Math.floor(Math.random()*currentVerses.length);
+ showVerse();
 }
-
 function showVerse(){
-  verseCard.classList.remove("visible");
-  setTimeout(()=>{
-    verseCard.textContent=currentVerses[index]||"No verse";
-    verseCard.classList.add("visible");
-  },150);
+ verseCard.classList.remove("visible");
+ setTimeout(()=>{verseCard.textContent=currentVerses[idx];verseCard.classList.add("visible");},120);
 }
-
-document.getElementById("nextVerseBtn").onclick=()=>{ index=(index+1)%currentVerses.length; showVerse(); };
-document.getElementById("prevVerseBtn").onclick=()=>{ index=(index-1+currentVerses.length)%currentVerses.length; showVerse(); };
+document.getElementById("nextVerseBtn").onclick=()=>{idx=(idx+1)%currentVerses.length;showVerse();}
+document.getElementById("prevVerseBtn").onclick=()=>{idx=(idx-1+currentVerses.length)%currentVerses.length;showVerse();}
 
 /* Favorites & Journal */
 document.getElementById("favBtn").onclick=()=>{
-  const favs=JSON.parse(localStorage.getItem("favorites")||"[]");
-  favs.push(currentVerses[index]); localStorage.setItem("favorites",JSON.stringify(favs));
-  alert("★ Saved");
+ let f=JSON.parse(localStorage.getItem("favorites")||"[]");
+ f.push(currentVerses[idx]); localStorage.setItem("favorites",JSON.stringify(f));
+ alert("⭐ Saved");
 };
-document.getElementById("shareBtn").onclick=()=>{
-  navigator.clipboard.writeText(currentVerses[index]);
-  alert("Copied ✅");
-};
-journal.value=localStorage.getItem("journal")||"";
-journal.oninput=()=>localStorage.setItem("journal",journal.value);
+function loadFavorites(){
+ let f=JSON.parse(localStorage.getItem("favorites")||"[]");
+ let box=document.getElementById("favList");
+ box.innerHTML="";
+ f.forEach(v=>{
+  let d=document.createElement("div");
+  d.style.margin="8px 0"; d.innerHTML=`${v} <button onclick="navigator.clipboard.writeText('${v}')">Copy</button>`;
+  box.appendChild(d);
+ });
+}
+document.getElementById("shareBtn").onclick=()=>navigator.clipboard.writeText(currentVerses[idx]);
+journal.value=localStorage.getItem("journal")||""; journal.oninput=()=>localStorage.setItem("journal",journal.value);
+journalPage.value=journal.value; journalPage.oninput=()=>{journal.value=journalPage.value;localStorage.setItem("journal",journalPage.value);}
 </script>
 </body>
 </html>
+
