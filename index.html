@@ -4,259 +4,248 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FaithMoods</title>
+<link rel="icon" href="data:," />
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-:root{
- --bg1:#6C63FF;
- --bg2:#4A00E0;
- --glass:rgba(255,255,255,0.18);
- --round:14px;
- --blur:10px;
-}
-body{
- margin:0; font-family:"Poppins",sans-serif;
- background:linear-gradient(120deg,#6C63FF,#8E2DE2,#4A00E0);
- background-size:400% 400%;
- animation:bgShift 12s ease infinite;
- color:white; min-height:100vh;
- display:flex; flex-direction:column;
-}
-@keyframes bgShift{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
-
-header{text-align:center;padding:1rem;font-size:26px;font-weight:600;}
-
-.container{padding:1rem;}
-
-.panel{
- background:var(--glass); backdrop-filter:blur(var(--blur));
- border-radius:var(--round); padding:1rem; margin-bottom:1rem;
+body {
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(120deg,#6C63FF,#8E2DE2,#4A00E0);
+  background-size:400% 400%;
+  animation:bgShift 12s ease infinite;
+  color:white;
 }
 
-button{
- cursor:pointer;border:none;border-radius:10px;
- padding:.6rem 1rem;background:#6C63FF;color:white;font-weight:600;
-}
-button:hover{opacity:.85;}
+@keyframes bgShift {0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
 
-ul{list-style:none;padding:0}
-li{
- background:rgba(255,255,255,0.15);
- margin:.3rem 0;padding:.6rem;border-radius:8px;
- cursor:pointer;
+.container {padding:20px;max-width:900px;margin:auto;}
+.panel {
+  background:rgba(255,255,255,0.15);
+  padding:20px;
+  border-radius:12px;
+  margin-bottom:20px;
+  backdrop-filter:blur(8px);
 }
 
-#verseBox{
- background:rgba(255,255,255,0.1);
- border-left:4px solid #fff;padding:1rem;
- border-radius:8px;min-height:60px;margin-top:1rem;font-style:italic;
+button {border:none;padding:8px 14px;border-radius:6px;cursor:pointer;background:#6C63FF;color:white;}
+button:hover {opacity:.8;}
+ul {padding:0;list-style:none;}
+ul li {
+  background:rgba(255,255,255,.18);
+  padding:10px;
+  margin:6px 0;
+  border-radius:6px;
+  cursor:pointer;
+}
+ul li:hover {background:rgba(255,255,255,.35);}
+
+#verse {font-size:1.1rem;min-height:50px;margin-bottom:10px;}
+
+textarea {
+  width:100%;
+  min-height:120px;
+  border-radius:10px;
+  border:none;
+  padding:12px;
+  font-family:'Poppins',sans-serif;
 }
 
-.navbar{
- position:fixed;bottom:0;left:0;right:0;
- background:rgba(0,0,0,0.28);backdrop-filter:blur(12px);
- display:flex;justify-content:space-around;padding:.6rem 0;
+#nav {
+  position:fixed;bottom:0;left:0;right:0;
+  background:rgba(0,0,0,0.35);
+  backdrop-filter:blur(8px);
+  display:flex;justify-content:space-around;
+  padding:10px 0;color:white;font-size:.9rem;
 }
-.nav-btn{
- background:none;border:none;color:white;
- display:flex;flex-direction:column;font-size:13px;
-}
-.nav-btn:hover{opacity:.8;}
+.nav-item {text-align:center;cursor:pointer;}
+.nav-item.active {font-weight:600;color:#FFD86B;}
 
-textarea{
- width:100%;padding:.8rem;border-radius:var(--round);
- border:none;margin-top:1rem;height:110px;
- font-family:Poppins;
-}
+.hidden {display:none;}
 
-.hidden{display:none;}
-.dark-mode{
- background:black !important;color:white !important;
+#intro {
+  position:fixed;top:0;left:0;right:0;bottom:0;
+  background:linear-gradient(120deg,#6C63FF,#8E2DE2,#4A00E0);
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  color:white;z-index:10;
 }
+.fadeOut {animation:fadeOut 1s forwards;}
+@keyframes fadeOut {to{opacity:0;visibility:hidden;}}
+
+.dark body {background:#121212;color:white;}
 </style>
 </head>
 
 <body>
 
-<header>FaithMoods</header>
-
-<div class="container">
-
-<div id="authSection" class="panel">
- <button id="googleLogin">Sign in with Google</button>
+<div id="intro">
+  <h1>FaithMoods</h1>
+  <p>Find clarity in Scripture</p>
+  <button id="startBtn">Start</button>
+  <button id="googleLogin">Sign in with Google</button>
 </div>
 
-<div id="appSection" class="hidden">
+<div class="container" id="homeTab">
+  <h2>Emotions</h2>
+  <ul id="emotions"></ul>
 
-<div class="panel">
- <h2>Emotions</h2>
- <ul id="emotions"></ul>
+  <div class="panel">
+    <div id="verse"></div>
+    <button id="prevVerse">Prev</button>
+    <button id="nextVerse">Next</button>
+    <button id="saveFav">❤️ Save</button>
+    <button id="shareVerse">📤 Share</button>
+  </div>
+
+  <textarea id="journal" placeholder="Write your reflection..."></textarea>
 </div>
 
-<div class="panel">
- <div id="reasons"></div>
- <div id="verseBox"></div>
- <br>
- <button id="prev">Prev</button>
- <button id="next">Next</button>
- <button id="saveFav">❤️ Save</button>
- <button id="shareBtn">📤 Share</button>
- <textarea id="journal" placeholder="Write your reflection..."></textarea>
+<div class="container hidden" id="favoritesTab">
+  <h2>Favorites</h2>
+  <div id="favList"></div>
 </div>
 
+<div class="container hidden" id="modeTab">
+  <h2>Theme</h2>
+  <button id="toggleTheme">Toggle Dark/Light</button>
 </div>
 
-<div id="favoritesSection" class="panel hidden">
- <h2>Favorites</h2>
- <ul id="favList"></ul>
+<div class="container hidden" id="musicTab">
+  <h2>Ambient Music</h2>
+  <button id="musicToggle">Play / Pause</button>
 </div>
 
-<div id="modeSection" class="panel hidden">
- <h2>Dark Mode</h2>
- <button id="toggleMode">Toggle Theme</button>
+<div id="nav">
+  <div class="nav-item active" data-tab="homeTab">🏠<br>Home</div>
+  <div class="nav-item" data-tab="favoritesTab">⭐<br>Favorites</div>
+  <div class="nav-item" data-tab="modeTab">🌙<br>Mode</div>
+  <div class="nav-item" data-tab="musicTab">🎵<br>Music</div>
 </div>
 
-<div id="musicSection" class="panel hidden">
- <h2>Music</h2>
- <button id="toggleMusic">Play / Pause</button>
-</div>
-
-</div>
-
-<!-- NAV BAR -->
-<div class="navbar">
- <button class="nav-btn" id="navHome">🏠<span>Home</span></button>
- <button class="nav-btn" id="navFav">⭐<span>Favorites</span></button>
- <button class="nav-btn" id="navMode">🌙<span>Mode</span></button>
- <button class="nav-btn" id="navMusic">🎵<span>Music</span></button>
-</div>
-
-<!-- BACKGROUND MUSIC -->
-<audio id="bgMusic" loop>
- <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Scott_Holmes_Music/Happy_Music/Scott_Holmes_Music_-_Happy_Adventure.mp3" type="audio/mpeg">
+<audio id="bgMusic" loop preload="auto"
+src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Monplaisir/Monplaisir_Places/Monplaisir_-_Pleasant_Places.mp3">
 </audio>
 
-<!-- FIREBASE -->
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
-import { getFirestore, collection, doc, getDocs, getDoc } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+/* ----- FIREBASE ----- */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
+import { getFirestore, collection, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
 
 const firebaseConfig = {
- apiKey:"AIzaSyCqwVQx8NbHucvpYmftMG3uSsTFQ5WBWM0",
- authDomain:"soultabs-c814d.firebaseapp.com",
- projectId:"soultabs-c814d",
- storageBucket:"soultabs-c814d.firebasestorage.app",
- messagingSenderId:"51287038225",
- appId:"1:51287038225:web:f8afac352a833f362214b0",
- measurementId:"G-B24FPHB1GC"
+  apiKey: "AIzaSyCqwVQx8NbHucvpYmftMG3uSsTFQ5WBWM0",
+  authDomain: "soultabs-c814d.firebaseapp.com",
+  projectId: "soultabs-c814d",
+  storageBucket: "soultabs-c814d.firebasestorage.app",
+  messagingSenderId: "51287038225",
+  appId: "1:51287038225:web:f8afac352a833f362214b0",
+  measurementId: "G-B24FPHB1GC"
 };
 
-const app=initializeApp(firebaseConfig);
-const db=getFirestore(app);
-const auth=getAuth(app);
-const provider=new GoogleAuthProvider();
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+const db = getFirestore(app);
 
-let verses=[],index=0;
-
-function showSection(home,fav,mode,music){
- document.getElementById("appSection").classList.toggle("hidden",!home);
- document.getElementById("favoritesSection").classList.toggle("hidden",!fav);
- document.getElementById("modeSection").classList.toggle("hidden",!mode);
- document.getElementById("musicSection").classList.toggle("hidden",!music);
-}
-
-// Nav
-navHome.onclick=()=>showSection(true,false,false,false);
-navFav.onclick=()=>showSection(false,true,false,false);
-navMode.onclick=()=>showSection(false,false,true,false);
-navMusic.onclick=()=>showSection(false,false,false,true);
-
-// Auth
-googleLogin.onclick=async()=>{
- await signInWithPopup(auth,provider);
- authSection.classList.add("hidden");
- appSection.classList.remove("hidden");
- loadEmotions();
+/* ----- AUTH ----- */
+document.getElementById("googleLogin").onclick = async () => {
+  try { await signInWithPopup(auth, provider); alert("Signed in!"); }
+  catch(e){ alert("Login error"); }
 };
 
-// Load emotions
+/* ----- UI / NAV ----- */
+document.querySelectorAll(".nav-item").forEach(btn=>{
+  btn.onclick=()=>{
+    document.querySelectorAll(".container").forEach(t=>t.classList.add("hidden"));
+    document.querySelectorAll(".nav-item").forEach(n=>n.classList.remove("active"));
+    document.getElementById(btn.dataset.tab).classList.remove("hidden");
+    btn.classList.add("active");
+  };
+});
+
+/* ----- INTRO ----- */
+document.getElementById("startBtn").onclick = ()=>{
+  document.getElementById("intro").classList.add("fadeOut");
+  loadEmotions();
+};
+
+/* ----- JOURNAL ----- */
+const journal = document.getElementById("journal");
+journal.value = localStorage.getItem("journal") || "";
+journal.oninput = ()=>localStorage.setItem("journal", journal.value);
+
+/* ----- THEMES ----- */
+document.getElementById("toggleTheme").onclick = ()=>document.body.classList.toggle("dark");
+
+/* ----- MUSIC ----- */
+const music = document.getElementById("bgMusic");
+document.getElementById("musicToggle").onclick = ()=>{
+  if(music.paused) music.play();
+  else music.pause();
+};
+
+/* ----- FIRESTORE: EMOTIONS & VERSES ----- */
+let verses = [], index = 0;
+
 async function loadEmotions(){
- const snap=await getDocs(collection(db,"emotions"));
- emotions.innerHTML="";
- snap.forEach(d=>{
-  let li=document.createElement("li");
-  li.textContent=d.id;
-  li.onclick=()=>loadReasons(d.id);
-  emotions.appendChild(li);
- });
+  const snap = await getDocs(collection(db,"emotions"));
+  const list = document.getElementById("emotions");
+  list.innerHTML="";
+  snap.forEach(docSnap=>{
+    let li=document.createElement("li");
+    li.textContent = docSnap.id;
+    li.onclick = ()=>loadVerses(docSnap.id);
+    list.appendChild(li);
+  });
 }
 
-// Load reasons
-async function loadReasons(emotion){
- const snap=await getDocs(collection(db,`emotions/${emotion}/reasons`));
- reasons.innerHTML="";
- snap.forEach(r=>{
-  let b=document.createElement("button");
-  b.textContent=r.id.replace(/_/g," ");
-  b.onclick=()=>loadVerses(emotion,r.id);
-  reasons.appendChild(b);
- });
+async function loadVerses(emotion){
+  const rSnap = await getDocs(collection(db, `emotions/${emotion}/reasons`));
+  for (let docSnap of rSnap.docs){
+    let data = (await getDoc(doc(db,`emotions/${emotion}/reasons/${docSnap.id}`))).data();
+    verses = data.verses || [];
+  }
+  index=0; showVerse();
 }
 
-// Load verses
-async function loadVerses(emotion,reason){
- let docSnap=await getDoc(doc(db,`emotions/${emotion}/reasons/${reason}`));
- verses=docSnap.data().verses;
- index=0;
- display();
+function showVerse(){
+  document.getElementById("verse").textContent = verses[index] || "No verses found";
 }
 
-function display(){
- if(!verses||!verses.length){verseBox.textContent="No verses"; return;}
- verseBox.textContent=verses[index];
-}
+document.getElementById("nextVerse").onclick = ()=>{if(verses.length){index=(index+1)%verses.length;showVerse();}};
+document.getElementById("prevVerse").onclick = ()=>{if(verses.length){index=(index-1+verses.length)%verses.length;showVerse();}};
 
-prev.onclick=()=>{index=(index-1+verses.length)%verses.length;display();}
-next.onclick=()=>{index=(index+1)%verses.length;display();}
-
-saveFav.onclick=()=>{
- let arr=JSON.parse(localStorage.getItem("faves")||"[]");
- arr.push(verses[index]);
- localStorage.setItem("faves",JSON.stringify(arr));
- alert("Saved!");
- loadFaves();
+/* ----- FAVORITES ----- */
+document.getElementById("saveFav").onclick = ()=>{
+  let favs = JSON.parse(localStorage.getItem("favs")||"[]");
+  if(verses[index]) favs.push(verses[index]);
+  localStorage.setItem("favs",JSON.stringify(favs));
+  loadFavorites();
 };
 
-// show favorites
-function loadFaves(){
- let arr=JSON.parse(localStorage.getItem("faves")||"[]");
- favList.innerHTML="";
- arr.forEach(v=>{
-  let li=document.createElement("li");
-  li.textContent=v;
-  favList.appendChild(li);
- });
+function loadFavorites(){
+  let favs = JSON.parse(localStorage.getItem("favs")||"[]");
+  const box = document.getElementById("favList");
+  box.innerHTML="";
+  favs.forEach((v,i)=>{
+    let div=document.createElement("div");
+    div.textContent=v;
+    let rm=document.createElement("button");
+    rm.textContent="❌";
+    rm.onclick=()=>{
+      favs.splice(i,1);
+      localStorage.setItem("favs",JSON.stringify(favs));
+      loadFavorites();
+    };
+    div.appendChild(rm);
+    box.appendChild(div);
+  });
 }
-loadFaves();
+document.getElementById("favoritesTab").onshow = loadFavorites;
 
-// Share
-shareBtn.onclick=()=>{
- navigator.clipboard.writeText(verses[index]);
- alert("Copied!");
-};
+document.getElementById("shareVerse").onclick = ()=>navigator.clipboard.writeText(verses[index]||"");
 
-// Journal
-journal.value=localStorage.getItem("journal")||"";
-journal.oninput=()=>localStorage.setItem("journal",journal.value);
-
-// Dark mode
-toggleMode.onclick=()=>document.body.classList.toggle("dark-mode");
-
-// Music
-const bgMusic=document.getElementById("bgMusic");
-toggleMusic.onclick=()=>{bgMusic.paused?bgMusic.play():bgMusic.pause();}
-navMusic.onclick=()=>{bgMusic.paused?bgMusic.play():bgMusic.pause();}
 </script>
 
 </body>
