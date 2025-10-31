@@ -130,7 +130,7 @@ textarea {
   <div class="nav-btn" data-tab="profileView">👤<br>Profile</div>
 </div>
 
-<audio id="bgMusic" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9abfc8e8c5.mp3?filename=ambient-piano-and-pad-112199.mp3"></audio>
+<audio id="bgMusic" src="https://cdn.jsdelivr.net/gh/anars/blank-audio/ambient-relaxation.mp3"></audio>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -161,7 +161,8 @@ let currentVerses=[],idx=0;
 /* Start */
 startBtn.onclick=()=>{
  intro.classList.add("fadeOut");
- music.play().catch(()=>{}); // Plays only after user click
+music.load();
+setTimeout(() => music.play().catch(()=>{}), 50);
  loadEmotions();
 };
 
