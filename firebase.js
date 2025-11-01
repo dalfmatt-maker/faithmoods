@@ -1,9 +1,15 @@
-// Import Firebase functions
+// Firebase Core Imports
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
+import { 
+  getAuth, 
+  GoogleAuthProvider 
+} from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
 
-// ✅ Your Firebase config
+import { 
+  getFirestore 
+} from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
+
+// Your Firebase Config
 const firebaseConfig = {
   apiKey: "AIzaSyCqwVQx8NbHucvpYmftMG3uSsTFQ5WBWM0",
   authDomain: "soultabs-c814d.firebaseapp.com",
@@ -14,7 +20,11 @@ const firebaseConfig = {
   measurementId: "G-B24FPHB1GC"
 };
 
-// ✅ Initialize Firebase
-export const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-export const db = getFirestore(app);
+// Initialize
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const googleProvider = new GoogleAuthProvider();
+
+// Export to index.html
+export { app, auth, db, googleProvider };
