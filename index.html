@@ -85,19 +85,13 @@ button:hover { opacity: .9; }
 </div>
 
 <!-- PROFILE -->
-<h2>Your Profile</h2>
-
-<p>Username:</p>
-<input id="usernameInput" placeholder="Enter username..." />
-<button onclick="saveUsername()">Save Username</button>
-
-<p style="margin-top:12px;">
-Streak: <b id="streakCount"></b> 🔥
-</p>
-
-<p>Your name: <b id="usernameDisplay"></b></p>
-
-<button onclick="signOut()">Sign Out</button>
+<div id="profilePage" class="screen">
+  <h2>Profile</h2>
+  <input id="usernameInput" placeholder="Enter username"><br><br>
+  <input id="weekVerse" placeholder="Verse of the week"><br><br>
+  <button id="saveProfile">Save Profile</button>
+  <div id="profileInfo"></div>
+</div>
 
 <!-- SETTINGS -->
 <div id="settingsPage" class="screen">
@@ -244,76 +238,6 @@ document.getElementById("saveProfile").onclick = ()=>{
 document.getElementById("toggleDark").onclick = ()=> document.body.classList.toggle("dark");
 document.getElementById("toggleClickSound").onclick = ()=> alert("Click sounds coming soon!");
 
-</script>
-<script>
-// ========== AUDIO ========== //
-const bgMusic = new Audio("./assets/audio/bg.mp3");
-bgMusic.loop = true;
-bgMusic.volume = 0.25;
-
-const clickSound = new Audio("./assets/audio/click.mp3");
-clickSound.volume = 0.35;
-
-let clickEnabled = JSON.parse(localStorage.getItem("clickEnabled") || "false");
-let musicEnabled = JSON.parse(localStorage.getItem("musicEnabled") || "false");
-
-// Button click sound utility
-function playClick() {
-  if (clickEnabled) clickSound.play().catch(()=>{});
-}
-
-// Toggle click sounds
-function toggleClickSound() {
-  clickEnabled = !clickEnabled;
-  localStorage.setItem("clickEnabled", JSON.stringify(clickEnabled));
-  alert(`Click sound: ${clickEnabled ? "ON" : "OFF"}`);
-}
-
-// Toggle music
-function toggleMusic() {
-  musicEnabled = !musicEnabled;
-  localStorage.setItem("musicEnabled", JSON.stringify(musicEnabled));
-  
-  if (musicEnabled) bgMusic.play().catch(()=>{});
-  else bgMusic.pause();
-
-  alert(`Music: ${musicEnabled ? "ON" : "OFF"}`);
-}
-
-// Auto-start background music if enabled
-if (musicEnabled) {
-  setTimeout(() => bgMusic.play().catch(()=>{}), 800);
-}
-
-// ========== PROFILE (USERNAME + STREAK) ========== //
-function saveUsername() {
-  const name = document.getElementById("usernameInput").value.trim();
-  localStorage.setItem("username", name);
-  document.getElementById("usernameDisplay").innerText = name;
-  alert("Username saved ✅");
-  playClick();
-}
-
-// Show saved username
-document.getElementById("usernameDisplay").innerText =
-  localStorage.getItem("username") || "Guest";
-
-// Daily streak system
-function updateStreak() {
-  const today = new Date().toDateString();
-  const last = localStorage.getItem("lastLogin");
-  let streak = parseInt(localStorage.getItem("streak") || "0");
-
-  if (last !== today) {
-    streak++;
-    localStorage.setItem("streak", streak);
-    localStorage.setItem("lastLogin", today);
-  }
-
-  document.getElementById("streakCount").innerText = streak;
-}
-
-updateStreak();
 </script>
 
 </body>
